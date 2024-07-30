@@ -2,7 +2,7 @@ namespace lesson218._07EF_API
 {
     public class WeatherForecast
     {
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
 
         public int TemperatureC { get; set; }
 
