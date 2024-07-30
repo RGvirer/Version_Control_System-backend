@@ -8,9 +8,9 @@ namespace IBL
 {
     public interface IObjectBL
     {
-        List<object> GetAll(Func<object, bool>? condition = null);
-        bool AddNew(object item);
-        bool Delete(object item);
-        bool Update(object item);
+        public List<object> GetAll(Func<object, bool>? condition = null);
+        public bool AddNew(object item);
+        public bool Delete(object item);
+        public bool Update(object item);
     }
 }

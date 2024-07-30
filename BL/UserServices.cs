@@ -7,7 +7,7 @@ using IDAL;
 
 namespace BL
 {
-    internal class UserServices : IBL.IObjectBL
+    public class UserServices : IBL.IObjectBL
     {
         private readonly IObjectDAL userDal;
 
