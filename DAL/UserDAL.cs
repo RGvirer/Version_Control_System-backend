@@ -1,9 +1,9 @@
-﻿using DAL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApplication1.Models;
 
 namespace DAL
 {
@@ -13,8 +13,8 @@ namespace DAL
         {
             try
             {
-                using Model.Rivki_Gvirer ctx = new();
-                ctx.Users.Add(item);
+                using var ctx = new Rivki_Gvirer(); // השתמש בקונטקסט שלך
+                ctx.User.Add(item); // הוסף את המודל שלך
                 ctx.SaveChanges();
                 return true;
             }
@@ -28,8 +28,8 @@ namespace DAL
         {
             try
             {
-                using Model.Rivki_Gvirer ctx = new();
-                ctx.Users.Remove(item);
+                using var ctx = new Rivki_Gvirer(); // השתמש בקונטקסט שלך
+                ctx.User.Remove(item); // הסר את המודל שלך
                 ctx.SaveChanges();
                 return true;
             }
@@ -43,9 +43,9 @@ namespace DAL
         {
             try
             {
-                using Model.Rivki_Gvirer ctx = new();
-                return condition == null ? ctx.Users.ToList() : ctx.Users.Where(condition).ToList();
-
+                using var ctx = new Rivki_Gvirer(); // השתמש בקונטקסט שלך
+                var groupPermissions = ctx.User.ToList();
+                return condition == null ? groupPermissions : groupPermissions.Where(condition).ToList();
             }
             catch (Exception)
             {
@@ -57,8 +57,8 @@ namespace DAL
         {
             try
             {
-                using Model.Rivki_Gvirer ctx = new();
-                ctx.Users.Update(item);
+                using var ctx = new Rivki_Gvirer(); // השתמש בקונטקסט שלך
+                ctx.User.Update(item); // עדכן את המודל שלך
                 ctx.SaveChanges();
                 return true;
             }
