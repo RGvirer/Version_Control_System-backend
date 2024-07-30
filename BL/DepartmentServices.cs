@@ -1,20 +1,26 @@
-﻿using DAL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IDAL;
 
 namespace BL
 {
     internal class DepartmentServices : IBL.IObjectBL
     {
+        private readonly IObjectDAL departmentDal;
+
+        public DepartmentServices(IObjectDAL departmentDal)
+        {
+            this.departmentDal = departmentDal;
+        }
+
         public bool AddNew(object item)
         {
             try
             {
-                DAL.DepartmentDAL dal = new();
-                return dal.AddNew(item);
+                return departmentDal.AddNew(item);
             }
             catch (Exception)
             {
@@ -26,8 +32,7 @@ namespace BL
         {
             try
             {
-                DAL.DepartmentDAL dal = new();
-                return dal.Delete(item);
+                return departmentDal.Delete(item);
             }
             catch (Exception)
             {
@@ -39,8 +44,7 @@ namespace BL
         {
             try
             {
-                DAL.DepartmentDAL dal = new();
-                return dal.GetAll(condition);
+                return departmentDal.GetAll(condition);
             }
             catch (Exception)
             {
@@ -52,8 +56,7 @@ namespace BL
         {
             try
             {
-                DAL.DepartmentDAL dal = new();
-                return dal.Update(item);
+                return departmentDal.Update(item);
             }
             catch (Exception)
             {

@@ -1,5 +1,4 @@
 ﻿using BL;
-using DAL.Model;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,7 +11,7 @@ namespace project_18_7.Controllers
     {
         // GET: api/<UserController>
         [HttpGet]
-        public IEnumerable<User> Get()
+        public IEnumerable<object> Get()
         {
             BL.UserServices userServices = new();
             return userServices.GetAll();
@@ -27,7 +26,7 @@ namespace project_18_7.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public bool Post([FromBody] User item)
+        public bool Post([FromBody] object item)
         {
             BL.UserServices user = new();
             return user.AddNew(item);

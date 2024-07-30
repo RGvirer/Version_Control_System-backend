@@ -1,4 +1,4 @@
-namespace WebApplication1
+namespace lesson218._07EF_API
 {
     public class WeatherForecast
     {

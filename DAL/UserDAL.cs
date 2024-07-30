@@ -13,7 +13,7 @@ namespace DAL
         {
             try
             {
-                using Model.Rivki_Gvirer_cContext ctx = new();
+                using Model.Rivki_Gvirer ctx = new();
                 ctx.Users.Add(item);
                 ctx.SaveChanges();
                 return true;
@@ -28,7 +28,7 @@ namespace DAL
         {
             try
             {
-                using Model.Rivki_Gvirer_cContext ctx = new();
+                using Model.Rivki_Gvirer ctx = new();
                 ctx.Users.Remove(item);
                 ctx.SaveChanges();
                 return true;
@@ -43,7 +43,7 @@ namespace DAL
         {
             try
             {
-                using Model.Rivki_Gvirer_cContext ctx = new();
+                using Model.Rivki_Gvirer ctx = new();
                 return condition == null ? ctx.Users.ToList() : ctx.Users.Where(condition).ToList();
 
             }
@@ -57,7 +57,7 @@ namespace DAL
         {
             try
             {
-                using Model.Rivki_Gvirer_cContext ctx = new();
+                using Model.Rivki_Gvirer ctx = new();
                 ctx.Users.Update(item);
                 ctx.SaveChanges();
                 return true;

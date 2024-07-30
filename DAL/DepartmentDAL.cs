@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace DAL
 {
     public class DepartmentDAL : IDAL.IObjectDAL
@@ -13,7 +12,7 @@ namespace DAL
         {
             try
             {
-                using Model.Rivki_Gvirer_cContext ctx = new();
+                using Model.Rivki_Gvirer ctx = new();
                 ctx.Departments.Add(item);
                 ctx.SaveChanges();
                 return true;
@@ -28,7 +27,7 @@ namespace DAL
         {
             try
             {
-                using Model.Rivki_Gvirer_cContext ctx = new();
+                using Model.Rivki_Gvirer ctx = new();
                 ctx.Departments.Remove(item);
                 ctx.SaveChanges();
                 return true;
@@ -43,7 +42,7 @@ namespace DAL
         {
             try
             {
-                using Model.Rivki_Gvirer_cContext ctx = new();
+                using Model.Rivki_Gvirer ctx = new();
                 return condition == null ? ctx.Departments.ToList() : ctx.Departments.Where(condition).ToList();
 
             }
@@ -57,7 +56,7 @@ namespace DAL
         {
             try
             {
-                using Model.Rivki_Gvirer_cContext ctx = new();
+                using Model.Rivki_Gvirer ctx = new();
                 ctx.Departments.Update(item);
                 ctx.SaveChanges();
                 return true;

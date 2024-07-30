@@ -1,20 +1,26 @@
-﻿using DAL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IDAL;
 
 namespace BL
 {
-    public class UserServices : IBL.IObjectBL
+    internal class UserServices : IBL.IObjectBL
     {
+        private readonly IObjectDAL userDal;
+
+        public UserServices(IObjectDAL userDal)
+        {
+            this.userDal = userDal;
+        }
+
         public bool AddNew(object item)
         {
             try
             {
-                DAL.UserDal dal = new();
-                return dal.AddNew(item);
+                return userDal.AddNew(item);
             }
             catch (Exception)
             {
@@ -26,22 +32,19 @@ namespace BL
         {
             try
             {
-                DAL.UserDal dal = new();
-                return dal.Delete(item);
+                return userDal.Delete(item);
             }
             catch (Exception)
             {
                 return false;
             }
-
         }
 
         public List<object> GetAll(Func<object, bool>? condition = null)
         {
             try
             {
-                DAL.UserDal dal = new();
-                return dal.GetAll(condition);
+                return userDal.GetAll(condition);
             }
             catch (Exception)
             {
@@ -53,8 +56,7 @@ namespace BL
         {
             try
             {
-                DAL.UserDal dal = new();
-                return dal.Update(item);
+                return userDal.Update(item);
             }
             catch (Exception)
             {
