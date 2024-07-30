@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IBL\IBL.csproj" />
+    <ProjectReference Include="..\IDAL\IDAL.csproj" />
   </ItemGroup>
 
 </Project>
