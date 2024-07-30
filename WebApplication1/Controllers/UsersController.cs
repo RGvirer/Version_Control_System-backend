@@ -9,11 +9,16 @@ namespace project_18_7.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private readonly UserServices userServices;
+
+        public UserController(UserServices userServices)
+        {
+            this.userServices = userServices;
+        }
         // GET: api/<UserController>
         [HttpGet]
         public IEnumerable<object> Get()
         {
-            BL.UserServices userServices = new();
             return userServices.GetAll();
         }
 
@@ -28,8 +33,7 @@ namespace project_18_7.Controllers
         [HttpPost]
         public bool Post([FromBody] object item)
         {
-            BL.UserServices user = new();
-            return user.AddNew(item);
+            return userServices.AddNew(item);
         }
 
         // PUT api/<UserController>/5

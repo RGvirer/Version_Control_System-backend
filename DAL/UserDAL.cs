@@ -11,10 +11,31 @@ namespace DAL
     {
         public bool AddNew(object item)
         {
+            if (item is User user)
+            {
             try
             {
-                using var ctx = new Rivki_Gvirer(); // השתמש בקונטקסט שלך
-                ctx.User.Add(item); // הוסף את המודל שלך
+                    using var ctx = new RivkiGvirerContext();
+                    ctx.Users.Add(user);
+                ctx.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            }
+            return false;
+        }
+
+        public bool Delete(object item)
+        {
+            if (item is User user)
+            {
+            try
+            {
+                    using var ctx = new RivkiGvirerContext();
+                    ctx.Users.Remove(user);
                 ctx.SaveChanges();
                 return true;
             }
@@ -23,29 +44,16 @@ namespace DAL
                 return false;
             }
         }
-
-        public bool Delete(object item)
-        {
-            try
-            {
-                using var ctx = new Rivki_Gvirer(); // השתמש בקונטקסט שלך
-                ctx.User.Remove(item); // הסר את המודל שלך
-                ctx.SaveChanges();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return false;
         }
 
         public List<object> GetAll(Func<object, bool>? condition = null)
         {
             try
             {
-                using var ctx = new Rivki_Gvirer(); // השתמש בקונטקסט שלך
-                var groupPermissions = ctx.User.ToList();
-                return condition == null ? groupPermissions : groupPermissions.Where(condition).ToList();
+                using var ctx = new RivkiGvirerContext();
+                var users = ctx.Users.ToList();
+                return condition == null ? users.Cast<object>().ToList() : users.Where(condition).Cast<object>().ToList();
             }
             catch (Exception)
             {
@@ -55,10 +63,12 @@ namespace DAL
 
         public bool Update(object item)
         {
+            if (item is User user)
+            {
             try
             {
-                using var ctx = new Rivki_Gvirer(); // השתמש בקונטקסט שלך
-                ctx.User.Update(item); // עדכן את המודל שלך
+                    using var ctx = new RivkiGvirerContext();
+                    ctx.Users.Update(user);
                 ctx.SaveChanges();
                 return true;
             }
@@ -66,6 +76,8 @@ namespace DAL
             {
                 return false;
             }
+            }
+            return false;
         }
     }
 }
