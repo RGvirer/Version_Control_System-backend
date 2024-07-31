@@ -1,5 +1,4 @@
-﻿using DAL.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,18 +13,18 @@ namespace DAL
         {
             if (item is Department department)
             {
-            try
-            {
+                try
+                {
                     using var ctx = new RivkiGvirerContext();
                     ctx.Departments.Add(department);
-                ctx.SaveChanges();
-                return true;
+                    ctx.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
             return false;
         }
 
@@ -33,18 +32,18 @@ namespace DAL
         {
             if (item is Department department)
             {
-            try
-            {
+                try
+                {
                     using var ctx = new RivkiGvirerContext();
                     ctx.Departments.Remove(department);
-                ctx.SaveChanges();
-                return true;
+                    ctx.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
             return false;
         }
 
@@ -66,17 +65,17 @@ namespace DAL
         {
             if (item is Department department)
             {
-            try
-            {
+                try
+                {
                     using var ctx = new RivkiGvirerContext();
                     ctx.Departments.Update(department);
-                ctx.SaveChanges();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+                    ctx.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
             return false;
         }
