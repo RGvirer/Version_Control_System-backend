@@ -1,9 +1,9 @@
-﻿using DAL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApplication1.Models;
 
 namespace DAL
 {
@@ -11,10 +11,12 @@ namespace DAL
     {
         public bool AddNew(object item)
         {
+            if (item is Patient patient)
+            {
             try
             {
-                using Model.Rivki_Gvirer ctx = new();
-                ctx.Patients.Add(item);
+                    using var ctx = new RivkiGvirerContext();
+                    ctx.Patients.Add(patient);
                 ctx.SaveChanges();
                 return true;
             }
@@ -23,13 +25,17 @@ namespace DAL
                 return false;
             }
         }
+            return false;
+        }
 
         public bool Delete(object item)
         {
+            if (item is Patient patient)
+            {
             try
             {
-                using Model.Rivki_Gvirer ctx = new();
-                ctx.Patients.Remove(item);
+                    using var ctx = new RivkiGvirerContext();
+                    ctx.Patients.Remove(patient);
                 ctx.SaveChanges();
                 return true;
             }
@@ -37,15 +43,17 @@ namespace DAL
             {
                 return false;
             }
+        }
+            return false;
         }
 
         public List<object> GetAll(Func<object, bool>? condition = null)
         {
             try
             {
-                using Model.Rivki_Gvirer ctx = new();
-                return condition == null ? ctx.Patients.ToList() : ctx.Patients.Where(condition).ToList();
-
+                using var ctx = new RivkiGvirerContext();
+                var patients = ctx.Patients.ToList();
+                return condition == null ? patients.Cast<object>().ToList() : patients.Where(condition).Cast<object>().ToList();
             }
             catch (Exception)
             {
@@ -55,10 +63,12 @@ namespace DAL
 
         public bool Update(object item)
         {
+            if (item is Patient patient)
+            {
             try
             {
-                using Model.Rivki_Gvirer ctx = new();
-                ctx.Patients.Update(item);
+                    using var ctx = new RivkiGvirerContext();
+                    ctx.Patients.Update(patient);
                 ctx.SaveChanges();
                 return true;
             }
@@ -66,6 +76,8 @@ namespace DAL
             {
                 return false;
             }
+            }
+            return false;
         }
     }
 }
