@@ -42,8 +42,8 @@ Welcome to the Hospital Management Console Program, a powerful C# application de
 
 ## Technical Stack
 - **Language**: C#
-- **ORM**: NHibernate
-- **Database**: Local Database
+- **ORM**: Entity Framework
+- **Database**: SQL server
 - **Testing Framework**: [Specify the unit testing framework used]
 
 ## Dependencies
