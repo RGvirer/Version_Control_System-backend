@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,17 +13,17 @@ namespace DAL
         {
             if (item is User user)
             {
-            try
-            {
+                try
+                {
                     using var ctx = new RivkiGvirerContext();
                     ctx.Users.Add(user);
-                ctx.SaveChanges();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+                    ctx.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
             return false;
         }
@@ -32,18 +32,18 @@ namespace DAL
         {
             if (item is User user)
             {
-            try
-            {
+                try
+                {
                     using var ctx = new RivkiGvirerContext();
                     ctx.Users.Remove(user);
-                ctx.SaveChanges();
-                return true;
+                    ctx.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
             return false;
         }
 
@@ -65,17 +65,17 @@ namespace DAL
         {
             if (item is User user)
             {
-            try
-            {
+                try
+                {
                     using var ctx = new RivkiGvirerContext();
                     ctx.Users.Update(user);
-                ctx.SaveChanges();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+                    ctx.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
             return false;
         }
