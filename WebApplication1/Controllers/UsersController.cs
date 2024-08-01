@@ -9,17 +9,17 @@ namespace project_18_7.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserServices userServices;
+        private readonly IBL.IObjectBL ibl;
 
-        public UserController(UserServices userServices)
+        public UserController(IBL.IObjectBL ibl)
         {
-            this.userServices = userServices;
+            this.ibl = ibl;
         }
         // GET: api/<UserController>
         [HttpGet]
         public IEnumerable<object> Get()
         {
-            return userServices.GetAll();
+            return ibl.GetAll();
         }
 
         // GET api/<UserController>/5
@@ -33,7 +33,7 @@ namespace project_18_7.Controllers
         [HttpPost]
         public bool Post([FromBody] object item)
         {
-            return userServices.AddNew(item);
+            return ibl.AddNew(item);
         }
 
         // PUT api/<UserController>/5
