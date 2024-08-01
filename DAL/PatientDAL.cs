@@ -1,56 +1,52 @@
-﻿using System;
+﻿using DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebApplication1.Models;
+//using WebApplication1.Models;
 
 namespace DAL
 {
     public class PatientDAL : IDAL.IObjectDAL
     {
-        public bool AddNew(object item)
+        public bool AddNew(object patient)
         {
-            if (item is Patient patient)
+
+            try
             {
-                try
-                {
-                    using var ctx = new RivkiGvirerContext();
-                    ctx.Patients.Add(patient);
-                    ctx.SaveChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
+                using var ctx = new RivkiGvirerContext();
+                ctx.Patients.Add((Patient)patient);
+                ctx.SaveChanges();
+                return true;
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
 
-        public bool Delete(object item)
+        public bool Delete(object patient)
         {
-            if (item is Patient patient)
+            try
             {
-                try
-                {
-                    using var ctx = new RivkiGvirerContext();
-                    ctx.Patients.Remove(patient);
-                    ctx.SaveChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
+                using var ctx = new RivkiGvirerContext();
+                ctx.Patients.Remove((Patient)patient);
+                ctx.SaveChanges();
+                return true;
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public List<object> GetAll(Func<object, bool>? condition = null)
         {
             try
             {
+
                 using var ctx = new RivkiGvirerContext();
                 var patients = ctx.Patients.ToList();
                 return condition == null ? patients.Cast<object>().ToList() : patients.Where(condition).Cast<object>().ToList();
@@ -61,23 +57,19 @@ namespace DAL
             }
         }
 
-        public bool Update(object item)
+        public bool Update(object patient)
         {
-            if (item is Patient patient)
+            try
             {
-                try
-                {
-                    using var ctx = new RivkiGvirerContext();
-                    ctx.Patients.Update(patient);
-                    ctx.SaveChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
+                using var ctx = new RivkiGvirerContext();
+                ctx.Patients.Update((Patient)patient);
+                ctx.SaveChanges();
+                return true;
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

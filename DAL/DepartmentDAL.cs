@@ -1,59 +1,51 @@
-﻿using System;
+﻿using DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebApplication1.Models;
 
 namespace DAL
 {
     public class DepartmentDAL : IDAL.IObjectDAL
     {
-        public bool AddNew(object item)
+        public bool AddNew(object department)
         {
-            if (item is Department department)
+            try
             {
-                try
-                {
-                    using var ctx = new RivkiGvirerContext();
-                    ctx.Departments.Add(department);
-                    ctx.SaveChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
+                using var ctx = new RivkiGvirerContext();
+                ctx.Departments.Add((Department)department);
+                ctx.SaveChanges();
+                return true;
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        public bool Delete(object item)
+        public bool Delete(object department)
         {
-            if (item is Department department)
+            try
             {
-                try
-                {
-                    using var ctx = new RivkiGvirerContext();
-                    ctx.Departments.Remove(department);
-                    ctx.SaveChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
+                using var ctx = new RivkiGvirerContext();
+                ctx.Departments.Remove((Department)department);
+                ctx.SaveChanges();
+                return true;
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public List<object> GetAll(Func<object, bool>? condition = null)
         {
             try
             {
-                using var ctx = new RivkiGvirerContext();
-                var departments = ctx.Departments.ToList();
-                return condition == null ? departments.Cast<object>().ToList() : departments.Where(condition).Cast<object>().ToList();
+                   using var ctx = new RivkiGvirerContext();
+                   var departments = ctx.Departments.ToList();
+                   return condition == null ? departments.Cast<object>().ToList() : departments.Where(condition).Cast<object>().ToList();
             }
             catch (Exception)
             {
@@ -61,23 +53,20 @@ namespace DAL
             }
         }
 
-        public bool Update(object item)
+        public bool Update(object department)
         {
-            if (item is Department department)
+
+            try
             {
-                try
-                {
                     using var ctx = new RivkiGvirerContext();
-                    ctx.Departments.Update(department);
+                    ctx.Departments.Update((Department)department);
                     ctx.SaveChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
+                return true;
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

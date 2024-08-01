@@ -9,18 +9,18 @@ namespace BL
 {
     public class DepartmentServices : IBL.IObjectBL
     {
-        private readonly IObjectDAL departmentDal;
+        private readonly IObjectDAL iDepartmentDal;
 
         public DepartmentServices(IObjectDAL departmentDal)
         {
-            this.departmentDal = departmentDal;
+            iDepartmentDal = departmentDal;
         }
 
         public bool AddNew(object item)
         {
             try
             {
-                return departmentDal.AddNew(item);
+                return iDepartmentDal.AddNew(item);
             }
             catch (Exception)
             {
@@ -32,7 +32,7 @@ namespace BL
         {
             try
             {
-                return departmentDal.Delete(item);
+                return iDepartmentDal.Delete(item);
             }
             catch (Exception)
             {
@@ -44,7 +44,7 @@ namespace BL
         {
             try
             {
-                return departmentDal.GetAll(condition);
+                return iDepartmentDal.GetAll(condition);
             }
             catch (Exception)
             {
@@ -56,7 +56,7 @@ namespace BL
         {
             try
             {
-                return departmentDal.Update(item);
+                return iDepartmentDal.Update(item);
             }
             catch (Exception)
             {

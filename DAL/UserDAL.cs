@@ -1,50 +1,42 @@
-﻿using System;
+﻿using DAL.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebApplication1.Models;
 
 namespace DAL
 {
-    public class UserDal : IDAL.IObjectDAL
+    public class UserDal : IDAL.IUserDAL
     {
-        public bool AddNew(object item)
+        private readonly DbContext dbContext;
+        public UserDal(DbContext _dbContext)
         {
-            if (item is User user)
-            {
-                try
-                {
-                    using var ctx = new RivkiGvirerContext();
-                    ctx.Users.Add(user);
-                    ctx.SaveChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-            return false;
+            dbContext = _dbContext;
+        }
+        public bool AddNew(object user)
+        {
+            throw new NotImplementedException();
         }
 
-        public bool Delete(object item)
+        public bool Delete(object user)
         {
-            if (item is User user)
+
+            throw new NotSupportedException();
+        }
+        public object Get(int id)
+        {
+            try
             {
-                try
-                {
-                    using var ctx = new RivkiGvirerContext();
-                    ctx.Users.Remove(user);
-                    ctx.SaveChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
+                using RivkiGvirerContext ctx = new RivkiGvirerContext();
+                var users = ctx.Users.ToList();
+                return users[id];
             }
-            return false;
+            catch (Exception)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public List<object> GetAll(Func<object, bool>? condition = null)
@@ -61,23 +53,19 @@ namespace DAL
             }
         }
 
-        public bool Update(object item)
+        public bool Update(object user)
         {
-            if (item is User user)
+            try
             {
-                try
-                {
-                    using var ctx = new RivkiGvirerContext();
-                    ctx.Users.Update(user);
-                    ctx.SaveChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
+                using var ctx = new RivkiGvirerContext();
+                ctx.Users.Update((User)user);
+                ctx.SaveChanges();
+                return true;
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

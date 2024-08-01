@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IDAL", "IDAL\IDAL.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBL", "IBL\IBL.csproj", "{A27AAEFC-A63D-4D05-A96D-0E178D97E8B0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accessories", "Accessories\Accessories.csproj", "{205DAF4E-2D0E-4526-8FC9-84041377E995}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A27AAEFC-A63D-4D05-A96D-0E178D97E8B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A27AAEFC-A63D-4D05-A96D-0E178D97E8B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A27AAEFC-A63D-4D05-A96D-0E178D97E8B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{205DAF4E-2D0E-4526-8FC9-84041377E995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{205DAF4E-2D0E-4526-8FC9-84041377E995}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{205DAF4E-2D0E-4526-8FC9-84041377E995}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{205DAF4E-2D0E-4526-8FC9-84041377E995}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

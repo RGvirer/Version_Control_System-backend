@@ -1,5 +1,4 @@
-﻿using BL;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,9 +8,9 @@ namespace project_18_7.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IBL.IObjectBL ibl;
+        private readonly IBL.IUserBL ibl;
 
-        public UserController(IBL.IObjectBL ibl)
+        public UserController(IBL.IUserBL ibl)
         {
             this.ibl = ibl;
         }

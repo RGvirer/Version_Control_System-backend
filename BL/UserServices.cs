@@ -1,26 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace BL
 {
-    public class UserServices : IBL.IObjectBL
+    public class UserServices : IBL.IUserBL
     {
         private readonly IObjectDAL userDal;
-
-        public UserServices(IObjectDAL userDal)
+        private readonly DbContext dbContext;
+        public UserServices(IObjectDAL _userDal, DbContext _dbContext)
         {
-            this.userDal = userDal;
+            userDal = _userDal;
+            dbContext = _dbContext;
         }
 
-        public bool AddNew(object item)
+        public bool AddNew(object user)
         {
             try
             {
-                return userDal.AddNew(item);
+                userDal.AddNew(user);
+                return true;
             }
             catch (Exception)
             {
@@ -28,11 +32,12 @@ namespace BL
             }
         }
 
-        public bool Delete(object item)
+        public bool Delete(object user)
         {
             try
             {
-                return userDal.Delete(item);
+                userDal.Delete(user);
+                return true;
             }
             catch (Exception)
             {
@@ -40,11 +45,11 @@ namespace BL
             }
         }
 
-        public List<object> GetAll(Func<object, bool>? condition = null)
+        public List<object> GetAll()
         {
             try
             {
-                return userDal.GetAll(condition);
+                return userDal.GetAll();
             }
             catch (Exception)
             {
@@ -52,11 +57,17 @@ namespace BL
             }
         }
 
-        public bool Update(object item)
+        public List<object> GetAll(Func<object, bool>? condition = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(object user)
         {
             try
             {
-                return userDal.Update(item);
+                userDal.Update(user);
+                return true;
             }
             catch (Exception)
             {
