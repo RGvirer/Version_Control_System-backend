@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
-    <ProjectReference Include="..\DAL\DAL.csproj" />
     <ProjectReference Include="..\IBL\IBL.csproj" />
     <ProjectReference Include="..\IDAL\IDAL.csproj" />
   </ItemGroup>

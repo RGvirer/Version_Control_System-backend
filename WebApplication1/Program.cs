@@ -12,6 +12,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped(typeof(IBL.IObjectBL), typeof(BL.UserServices));
+builder.Services.AddScoped(typeof(IBL.IObjectBL), typeof(BL.DepartmentServices));
+builder.Services.AddScoped(typeof(IBL.IObjectBL), typeof(BL.PatientsServices));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
