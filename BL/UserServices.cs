@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using IDAL;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,8 +20,7 @@ namespace BL
         {
             try
             {
-                userDal.AddNew(user);
-                return true;
+                return userDal.AddNew(user);
             }
             catch (Exception)
             {
@@ -45,6 +41,11 @@ namespace BL
             }
         }
 
+        public bool Get(object item)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<object> GetAll()
         {
             try
@@ -53,7 +54,7 @@ namespace BL
             }
             catch (Exception)
             {
-                throw new NotImplementedException();
+                return new List<object>();
             }
         }
 
@@ -66,8 +67,7 @@ namespace BL
         {
             try
             {
-                userDal.Update(user);
-                return true;
+                return userDal.Update(user);
             }
             catch (Exception)
             {

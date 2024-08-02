@@ -8,8 +8,9 @@ namespace IDAL
 {
     public interface IObjectDAL
     {
-        List<object> GetAll(Func<object, bool>? condition = null);
         bool AddNew(object item);
+        bool Get(object item);
+        List<object> GetAll(Func<object, bool>? condition = null);
         bool Delete(object item);
         bool Update(object item);
     }

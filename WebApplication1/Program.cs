@@ -1,16 +1,23 @@
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using BL;
+using DAL;
 using IBL;
-using DAL.Models;
-using Accessories;
+using IDAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// הגדרת התלותות ל-DAL ו-BL
+builder.Services.AddDALDependencies();
+builder.Services.AddBLDependencies();
+
+// הגדרת DbContext עם Connection String
 builder.Services.AddDbContext<RivkiGvirerContext>(options =>
           options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

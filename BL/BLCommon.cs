@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IBL;
 
 namespace BL
 {
@@ -11,8 +12,8 @@ namespace BL
     {
         public static IServiceCollection AddBLDependencies(this IServiceCollection collection)
         {
-            collection.AddScoped(typeof(IBL.IObjectBL), typeof(BL.DepartmentServices));
-            collection.AddScoped(typeof(IBL.IUserBL), typeof(BL.UserServices));
+            collection.AddScoped(typeof(IObjectBL), typeof(DepartmentServices));
+            collection.AddScoped(typeof(IUserBL), typeof(UserServices));
             return collection;
         }
     }

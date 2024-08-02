@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using DAL.Models; // ודא שזה המודל הנכון שלך
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace project_18_7.Controllers
 {
@@ -8,43 +9,89 @@ namespace project_18_7.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IBL.IUserBL ibl;
+        private readonly IBL.IUserBL _ibl;
 
         public UserController(IBL.IUserBL ibl)
         {
-            this.ibl = ibl;
+            _ibl = ibl;
         }
-        // GET: api/<UserController>
+
+        // GET: api/User
         [HttpGet]
-        public IEnumerable<object> Get()
+        public ActionResult<IEnumerable<User>> Get()
         {
-            return ibl.GetAll();
+            var users = _ibl.GetAll().ToList(); // אם GetAll מחזיר IEnumerable<User>
+            return Ok(users);
         }
 
-        // GET api/<UserController>/5
+        // GET api/User/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<User> Get(int id)
         {
-            return "value";
+            var user = _ibl.Get(id); // אם Get מחזיר User
+            if (user == null)
+            {
+                return NotFound();
+        }
+            return Ok(user);
         }
 
-        // POST api/<UserController>
+        // POST api/User
         [HttpPost]
-        public bool Post([FromBody] object item)
+        public ActionResult Post([FromBody] User user)
         {
-            return ibl.AddNew(item);
+            if (user == null)
+            {
+                return BadRequest("User cannot be null");
         }
 
-        // PUT api/<UserController>/5
+            var success = _ibl.AddNew(user); // אם AddNew מקבל User
+            if (success)
+            {
+                return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
+            }
+            return StatusCode(500, "A problem occurred while handling your request.");
+        }
+
+        // PUT api/User/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult Put(int id, [FromBody] User user)
         {
+            if (user == null || user.UserId != id)
+            {
+                return BadRequest("User ID mismatch");
+            }
+
+            var existingUser = _ibl.Get(id); // אם Get מחזיר User
+            if (existingUser == null)
+            {
+                return NotFound();
+            }
+
+            var success = _ibl.Update(user); // אם Update מקבל User
+            if (success)
+        {
+                return NoContent();
+        }
+            return StatusCode(500, "A problem occurred while handling your request.");
         }
 
-        // DELETE api/<UserController>/5
+        // DELETE api/User/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
+            var existingUser = _ibl.Get(id); // אם Get מחזיר User
+            if (existingUser == null)
+            {
+                return NotFound();
+            }
+
+            var success = _ibl.Delete(existingUser); // אם Delete מקבל User
+            if (success)
+        {
+                return NoContent();
+            }
+            return StatusCode(500, "A problem occurred while handling your request.");
         }
     }
 }

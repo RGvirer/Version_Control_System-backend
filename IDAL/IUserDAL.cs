@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace IDAL
 {
-    public interface IUserDAL:IObjectDAL
+    public interface IUserDAL : IObjectDAL
     {
-       // List<object> GetAllUsers();
+
     }
 }

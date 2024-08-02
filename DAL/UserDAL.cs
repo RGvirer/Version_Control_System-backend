@@ -10,56 +10,75 @@ namespace DAL
 {
     public class UserDal : IDAL.IUserDAL
     {
-        private readonly DbContext dbContext;
-        public UserDal(DbContext _dbContext)
+        private readonly RivkiGvirerContext dbContext;
+        public UserDal(RivkiGvirerContext _dbContext)
         {
             dbContext = _dbContext;
         }
         public bool AddNew(object user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dbContext.Users.Add((User)user);
+                dbContext.SaveChanges();
+                return true;
+        }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public bool Delete(object user)
         {
-
-            throw new NotSupportedException();
+            try
+            {
+                dbContext.Users.Remove((User)user);
+                dbContext.SaveChanges();
+                return true;
+        }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         public object Get(int id)
         {
             try
             {
-                using RivkiGvirerContext ctx = new RivkiGvirerContext();
-                var users = ctx.Users.ToList();
-                return users[id];
+                return dbContext.Users.Find(id);
             }
             catch (Exception)
             {
-                throw new NotImplementedException();
+                return null;
             }
         }
+
 
         public List<object> GetAll(Func<object, bool>? condition = null)
         {
             try
             {
-                using var ctx = new RivkiGvirerContext();
-                var users = ctx.Users.ToList();
+                var users = dbContext.Users.ToList();
                 return condition == null ? users.Cast<object>().ToList() : users.Where(condition).Cast<object>().ToList();
             }
             catch (Exception)
             {
-                throw new NotImplementedException();
+                return new List<object>();
             }
         }
+
+        public List<object> GetAll()
+        {
+                throw new NotImplementedException();
+            }
 
         public bool Update(object user)
         {
             try
             {
-                using var ctx = new RivkiGvirerContext();
-                ctx.Users.Update((User)user);
-                ctx.SaveChanges();
+                dbContext.Users.Update((User)user);
+                dbContext.SaveChanges();
                 return true;
             }
             catch (Exception)

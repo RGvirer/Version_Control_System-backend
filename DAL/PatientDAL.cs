@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using WebApplication1.Models;
 
 namespace DAL
 {
@@ -40,6 +39,11 @@ namespace DAL
             {
                 return false;
             }
+        }
+
+        public bool Get(object item)
+        {
+            throw new NotImplementedException();
         }
 
         public List<object> GetAll(Func<object, bool>? condition = null)
