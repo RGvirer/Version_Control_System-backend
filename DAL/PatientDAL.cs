@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,35 +10,47 @@ namespace DAL
 {
     public class PatientDAL : IDAL.IObjectDAL
     {
+        private readonly RivkiGvirerContext dbContext;
+        public PatientDAL(RivkiGvirerContext _dbContext)
+        {
+            dbContext = _dbContext;
+        }
         public bool AddNew(object patient)
         {
-
             try
             {
-                using var ctx = new RivkiGvirerContext();
-                ctx.Patients.Add((Patient)patient);
-                ctx.SaveChanges();
+                dbContext.Patients.Add((Patient)patient);
+                dbContext.SaveChanges();
                 return true;
             }
             catch (Exception)
             {
                 return false;
             }
-
         }
 
         public bool Delete(object patient)
         {
             try
             {
-                using var ctx = new RivkiGvirerContext();
-                ctx.Patients.Remove((Patient)patient);
-                ctx.SaveChanges();
+                dbContext.Patients.Remove((Patient)patient);
+                dbContext.SaveChanges();
                 return true;
             }
             catch (Exception)
             {
                 return false;
+            }
+        }
+        public object Get(int id)
+        {
+            try
+            {
+                return dbContext.Patients.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 
@@ -46,14 +59,11 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public List<object> GetAll(Func<object, bool>? condition = null)
+        public List<object> GetAll()
         {
             try
             {
-
-                using var ctx = new RivkiGvirerContext();
-                var patients = ctx.Patients.ToList();
-                return condition == null ? patients.Cast<object>().ToList() : patients.Where(condition).Cast<object>().ToList();
+                return dbContext.Patients.Cast<object>().ToList();
             }
             catch (Exception)
             {
@@ -61,13 +71,13 @@ namespace DAL
             }
         }
 
+
         public bool Update(object patient)
         {
             try
             {
-                using var ctx = new RivkiGvirerContext();
-                ctx.Patients.Update((Patient)patient);
-                ctx.SaveChanges();
+                dbContext.Patients.Update((Patient)patient);
+                dbContext.SaveChanges();
                 return true;
             }
             catch (Exception)

@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using IDAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace BL
 {
     public class DepartmentServices : IBL.IObjectBL
     {
-        private readonly IObjectDAL iDepartmentDal;
-
-        public DepartmentServices(IObjectDAL departmentDal)
+        private readonly IObjectDAL departmentDAL;
+        private readonly IAppDbContext dbContext;
+        public DepartmentServices(IObjectDAL _departmentDAL, IAppDbContext _dbContext)
         {
-            iDepartmentDal = departmentDal;
+            departmentDAL = _departmentDAL;
+            dbContext = _dbContext;
         }
 
-        public bool AddNew(object item)
+        public bool AddNew(object user)
         {
             try
             {
-                return iDepartmentDal.AddNew(item);
+                return departmentDAL.AddNew(user);
             }
             catch (Exception)
             {
@@ -28,11 +28,11 @@ namespace BL
             }
         }
 
-        public bool Delete(object item)
+        public bool Delete(object user)
         {
             try
             {
-                return iDepartmentDal.Delete(item);
+                return departmentDAL.Delete(user);
             }
             catch (Exception)
             {
@@ -40,23 +40,29 @@ namespace BL
             }
         }
 
-        public List<object> GetAll(Func<object, bool>? condition = null)
+        public bool Get(object item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<object> GetAll()
         {
             try
             {
-                return iDepartmentDal.GetAll(condition);
+                return departmentDAL.GetAll();
             }
             catch (Exception)
             {
-                throw new NotImplementedException();
+                return new List<object>();
             }
         }
 
-        public bool Update(object item)
+
+        public bool Update(object user)
         {
             try
             {
-                return iDepartmentDal.Update(item);
+                return departmentDAL.Update(user);
             }
             catch (Exception)
             {

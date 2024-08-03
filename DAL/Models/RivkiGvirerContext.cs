@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Models;
 
-public partial class RivkiGvirerContext : DbContext
+public partial class RivkiGvirerContext : DbContext, IDAL.IAppDbContext
 {
     public RivkiGvirerContext()
     {
@@ -32,9 +32,13 @@ public partial class RivkiGvirerContext : DbContext
     public virtual DbSet<UserPermission> UserPermissions { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-U1QEHDF\\SQLEXPRESS;Initial Catalog=Rivki_Gvirer;Integrated Security=True;Encrypt=True;Trust Server Certificate=True;Command Timeout=180");
-
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            // אפשר לכתוב קוד זה כדי לא להחמיץ את מיקום ההגדרה אם האופציה לא הוזנה מראש
+            // optionsBuilder.UseSqlServer("DefaultConnection");
+        }
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Department>(entity =>

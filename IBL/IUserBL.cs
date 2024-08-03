@@ -8,6 +8,6 @@ namespace IBL
 {
     public interface IUserBL:IObjectBL
     {
-       
+
     }
 }

@@ -8,9 +8,9 @@ namespace BL
 {
     public class UserServices : IBL.IUserBL
     {
-        private readonly IObjectDAL userDal;
-        private readonly DbContext dbContext;
-        public UserServices(IObjectDAL _userDal, DbContext _dbContext)
+        private readonly IUserDAL userDal;
+        private readonly IAppDbContext dbContext;
+        public UserServices(IUserDAL _userDal, IAppDbContext _dbContext)
         {
             userDal = _userDal;
             dbContext = _dbContext;
@@ -32,8 +32,7 @@ namespace BL
         {
             try
             {
-                userDal.Delete(user);
-                return true;
+                return userDal.Delete(user);
             }
             catch (Exception)
             {
@@ -58,10 +57,6 @@ namespace BL
             }
         }
 
-        public List<object> GetAll(Func<object, bool>? condition = null)
-        {
-            throw new NotImplementedException();
-        }
 
         public bool Update(object user)
         {

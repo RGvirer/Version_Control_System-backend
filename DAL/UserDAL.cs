@@ -22,7 +22,7 @@ namespace DAL
                 dbContext.Users.Add((User)user);
                 dbContext.SaveChanges();
                 return true;
-        }
+            }
             catch (Exception)
             {
                 return false;
@@ -36,7 +36,7 @@ namespace DAL
                 dbContext.Users.Remove((User)user);
                 dbContext.SaveChanges();
                 return true;
-        }
+            }
             catch (Exception)
             {
                 return false;
@@ -54,24 +54,23 @@ namespace DAL
             }
         }
 
-
-        public List<object> GetAll(Func<object, bool>? condition = null)
+        public bool Get(object item)
         {
-            try
-            {
-                var users = dbContext.Users.ToList();
-                return condition == null ? users.Cast<object>().ToList() : users.Where(condition).Cast<object>().ToList();
-            }
-            catch (Exception)
-            {
-                return new List<object>();
-            }
+            throw new NotImplementedException();
         }
 
         public List<object> GetAll()
         {
+            try
+            {
+                return dbContext.Users.Cast<object>().ToList();
+            }
+            catch (Exception)
+            {
                 throw new NotImplementedException();
             }
+        }
+
 
         public bool Update(object user)
         {

@@ -40,11 +40,16 @@ namespace BL
             }
         }
 
-        public List<object> GetAll(Func<object, bool>? condition = null)
+        public bool Get(object item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<object> GetAll()
         {
             try
             {
-                return patientDal.GetAll(condition);
+                return patientDal.GetAll();
             }
             catch (Exception)
             {

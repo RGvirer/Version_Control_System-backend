@@ -1,4 +1,4 @@
-﻿using DAL.Models; // ודא שזה המודל הנכון שלך
+﻿using DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +32,7 @@ namespace project_18_7.Controllers
             if (user == null)
             {
                 return NotFound();
-        }
+            }
             return Ok(user);
         }
 
@@ -43,7 +43,7 @@ namespace project_18_7.Controllers
             if (user == null)
             {
                 return BadRequest("User cannot be null");
-        }
+            }
 
             var success = _ibl.AddNew(user); // אם AddNew מקבל User
             if (success)
@@ -62,17 +62,17 @@ namespace project_18_7.Controllers
                 return BadRequest("User ID mismatch");
             }
 
-            var existingUser = _ibl.Get(id); // אם Get מחזיר User
+            var existingUser = _ibl.Get(id);
             if (existingUser == null)
             {
                 return NotFound();
             }
 
-            var success = _ibl.Update(user); // אם Update מקבל User
+            var success = _ibl.Update(user);
             if (success)
-        {
+            {
                 return NoContent();
-        }
+            }
             return StatusCode(500, "A problem occurred while handling your request.");
         }
 
@@ -80,15 +80,15 @@ namespace project_18_7.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            var existingUser = _ibl.Get(id); // אם Get מחזיר User
+            var existingUser = _ibl.Get(id);
             if (existingUser == null)
             {
                 return NotFound();
             }
 
-            var success = _ibl.Delete(existingUser); // אם Delete מקבל User
+            var success = _ibl.Delete(existingUser);
             if (success)
-        {
+            {
                 return NoContent();
             }
             return StatusCode(500, "A problem occurred while handling your request.");

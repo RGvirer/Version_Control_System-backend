@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,17 @@ namespace DAL
 {
     public class DepartmentDAL : IDAL.IObjectDAL
     {
+        private readonly RivkiGvirerContext dbContext;
+        public DepartmentDAL(RivkiGvirerContext _dbContext)
+        {
+            dbContext = _dbContext;
+        }
         public bool AddNew(object department)
         {
             try
             {
-                using var ctx = new RivkiGvirerContext();
-                ctx.Departments.Add((Department)department);
-                ctx.SaveChanges();
+                dbContext.Departments.Add((Department)department);
+                dbContext.SaveChanges();
                 return true;
             }
             catch (Exception)
@@ -28,9 +33,8 @@ namespace DAL
         {
             try
             {
-                using var ctx = new RivkiGvirerContext();
-                ctx.Departments.Remove((Department)department);
-                ctx.SaveChanges();
+                dbContext.Departments.Remove((Department)department);
+                dbContext.SaveChanges();
                 return true;
             }
             catch (Exception)
@@ -38,14 +42,28 @@ namespace DAL
                 return false;
             }
         }
-
-        public List<object> GetAll(Func<object, bool>? condition = null)
+        public object Get(int id)
         {
             try
             {
-                   using var ctx = new RivkiGvirerContext();
-                   var departments = ctx.Departments.ToList();
-                   return condition == null ? departments.Cast<object>().ToList() : departments.Where(condition).Cast<object>().ToList();
+                return dbContext.Departments.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public bool Get(object item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<object> GetAll()
+        {
+            try
+            {
+                return dbContext.Departments.Cast<object>().ToList();
             }
             catch (Exception)
             {
@@ -53,14 +71,13 @@ namespace DAL
             }
         }
 
+
         public bool Update(object department)
         {
-
             try
             {
-                    using var ctx = new RivkiGvirerContext();
-                    ctx.Departments.Update((Department)department);
-                    ctx.SaveChanges();
+                dbContext.Departments.Update((Department)department);
+                dbContext.SaveChanges();
                 return true;
             }
             catch (Exception)

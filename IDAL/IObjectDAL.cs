@@ -10,7 +10,7 @@ namespace IDAL
     {
         bool AddNew(object item);
         bool Get(object item);
-        List<object> GetAll(Func<object, bool>? condition = null);
+        List<object> GetAll();
         bool Delete(object item);
         bool Update(object item);
     }
