@@ -16,11 +16,11 @@ namespace BL
             dbContext = _dbContext;
         }
 
-        public bool AddNew(object user)
+        public bool AddNew(object department)
         {
             try
             {
-                return departmentDAL.AddNew(user);
+                return departmentDAL.AddNew(department);
             }
             catch (Exception)
             {
@@ -28,11 +28,11 @@ namespace BL
             }
         }
 
-        public bool Delete(object user)
+        public bool Delete(object department)
         {
             try
             {
-                return departmentDAL.Delete(user);
+                return departmentDAL.Delete(department);
             }
             catch (Exception)
             {
@@ -58,11 +58,11 @@ namespace BL
         }
 
 
-        public bool Update(object user)
+        public bool Update(object department)
         {
             try
             {
-                return departmentDAL.Update(user);
+                return departmentDAL.Update(department);
             }
             catch (Exception)
             {

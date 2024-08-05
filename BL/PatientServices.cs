@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using IDAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace BL
 {
     public class PatientsServices : IBL.IObjectBL
     {
-        private readonly IObjectDAL patientDal;
-
-        public PatientsServices(IObjectDAL patientDal)
+        private readonly IObjectDAL patientDAL;
+        private readonly IAppDbContext dbContext;
+        public PatientsServices(IObjectDAL _patientDAL, IAppDbContext _dbContext)
         {
-            this.patientDal = patientDal;
+            patientDAL = _patientDAL;
+            dbContext = _dbContext;
         }
 
-        public bool AddNew(object item)
+        public bool AddNew(object patient)
         {
             try
             {
-                return patientDal.AddNew(item);
+                return patientDAL.AddNew(patient);
             }
             catch (Exception)
             {
@@ -28,11 +28,11 @@ namespace BL
             }
         }
 
-        public bool Delete(object item)
+        public bool Delete(object patient)
         {
             try
             {
-                return patientDal.Delete(item);
+                return patientDAL.Delete(patient);
             }
             catch (Exception)
             {
@@ -49,19 +49,20 @@ namespace BL
         {
             try
             {
-                return patientDal.GetAll();
+                return patientDAL.GetAll();
             }
             catch (Exception)
             {
-                throw new NotImplementedException();
+                return new List<object>();
             }
         }
 
-        public bool Update(object item)
+
+        public bool Update(object patient)
         {
             try
             {
-                return patientDal.Update(item);
+                return patientDAL.Update(patient);
             }
             catch (Exception)
             {
