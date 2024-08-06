@@ -13,8 +13,9 @@ namespace DAL
             services.AddDbContext<RivkiGvirerContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IAppDbContext, RivkiGvirerContext>();
-            services.AddScoped<IUserDAL, UserDal>(); // Make sure UserDal implements IUserDAL
+            services.AddScoped(typeof(IDAL.IUserDAL), typeof(DAL.UserDal));
+            services.AddDbContext<RivkiGvirerContext>(options =>
+                                options.UseSqlServer());
 
             return services;
         }

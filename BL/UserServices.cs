@@ -9,11 +9,9 @@ namespace BL
     public class UserServices : IBL.IUserBL
     {
         private readonly IUserDAL userDal;
-        private readonly IAppDbContext dbContext;
-        public UserServices(IUserDAL _userDal, IAppDbContext _dbContext)
+        public UserServices(IUserDAL _userDal)
         {
             userDal = _userDal;
-            dbContext = _dbContext;
         }
 
         public bool AddNew(object user)

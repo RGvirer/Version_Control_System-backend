@@ -9,11 +9,9 @@ namespace BL
     public class PatientsServices : IBL.IObjectBL
     {
         private readonly IObjectDAL patientDAL;
-        private readonly IAppDbContext dbContext;
-        public PatientsServices(IObjectDAL _patientDAL, IAppDbContext _dbContext)
+        public PatientsServices(IObjectDAL _patientDAL)
         {
             patientDAL = _patientDAL;
-            dbContext = _dbContext;
         }
 
         public bool AddNew(object patient)

@@ -9,11 +9,9 @@ namespace BL
     public class DepartmentServices : IBL.IObjectBL
     {
         private readonly IObjectDAL departmentDAL;
-        private readonly IAppDbContext dbContext;
-        public DepartmentServices(IObjectDAL _departmentDAL, IAppDbContext _dbContext)
+        public DepartmentServices(IObjectDAL _departmentDAL)
         {
             departmentDAL = _departmentDAL;
-            dbContext = _dbContext;
         }
 
         public bool AddNew(object department)

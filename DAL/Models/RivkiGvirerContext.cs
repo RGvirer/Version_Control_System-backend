@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Models;
 
-public partial class RivkiGvirerContext : DbContext, IDAL.IAppDbContext
+public partial class RivkiGvirerContext : DbContext
 {
     public RivkiGvirerContext()
     {
