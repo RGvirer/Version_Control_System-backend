@@ -1,43 +1,108 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DAL;
+using DataTransferObjects;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace lesson218._07EF_API.Controllers
+namespace project_18_7.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PatientsController : ControllerBase
+    public class PatientController : ControllerBase
     {
-        // GET: api/<PatientsController>
+        private readonly IBL.IPatientBL _ibl;
+
+        public PatientController(IBL.IPatientBL ibl)
+        {
+            _ibl = ibl;
+        }
+
+        // GET: api/Patient
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<IEnumerable<PatientDTO>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var patients = _ibl.GetAll().ToList();
+            return Ok(patients);
         }
 
-        // GET api/<PatientsController>/5
+        // GET api/Patient/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<PatientDTO> Get(int id)
         {
-            return "value";
+            try
+            {
+                var patientDto = _ibl.Get(id);
+
+                if (patientDto == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(patientDto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(500, "Internal server error");
+            }
         }
 
-        // POST api/<PatientsController>
+        // POST api/Patient
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult Post([FromBody] PatientDTO patientDto)
         {
+            if (patientDto == null)
+            {
+                return BadRequest("Patient cannot be null");
+            }
+
+            var success = _ibl.AddNew(patientDto);
+            if (success)
+            {
+                return CreatedAtAction(nameof(Get), new { id = patientDto.PatientId }, patientDto);
+            }
+            return StatusCode(500, "A problem occurred while handling your request.");
         }
 
-        // PUT api/<PatientsController>/5
+        // PUT api/Patient/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult Put(int id, [FromBody] PatientDTO patientDto)
         {
+            if (patientDto == null || patientDto.PatientId != id)
+            {
+                return BadRequest("Patient ID mismatch");
+            }
+
+            var existingPatient = _ibl.Get(id);
+            if (existingPatient == null)
+            {
+                return NotFound();
+            }
+
+            var success = _ibl.Update(patientDto);
+            if (success)
+            {
+                return NoContent();
+            }
+            return StatusCode(500, "A problem occurred while handling your request.");
         }
 
-        // DELETE api/<PatientsController>/5
+        // DELETE api/Patient/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
+            var existingPatient = _ibl.Get(id);
+            if (existingPatient == null)
+            {
+                return NotFound();
+            }
+
+            var success = _ibl.Delete(existingPatient);
+            if (success)
+            {
+                return NoContent();
+            }
+            return StatusCode(500, "A problem occurred while handling your request.");
         }
     }
 }

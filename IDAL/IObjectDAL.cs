@@ -8,10 +8,10 @@ namespace IDAL
 {
     public interface IObjectDAL
     {
-        bool AddNew(object item);
-        bool Get(object item);
-        List<object> GetAll();
-        bool Delete(object item);
-        bool Update(object item);
+        public bool AddNew(object entity);
+        public object Get(int id);
+        public List<object> GetAll();
+        public bool Update(object entity);
+        public bool Delete(int id);
     }
 }

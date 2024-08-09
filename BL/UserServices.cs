@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using DataTransferObjects;
+using IBL;
 using IDAL;
-using Microsoft.EntityFrameworkCore;
 
 namespace BL
 {
-    public class UserServices : IBL.IUserBL
+    public class UserServices : IUserBL
     {
         private readonly IUserDAL userDal;
         public UserServices(IUserDAL _userDal)
@@ -14,7 +12,7 @@ namespace BL
             userDal = _userDal;
         }
 
-        public bool AddNew(object user)
+        public bool AddNew(UserDTO user)
         {
             try
             {
@@ -26,11 +24,12 @@ namespace BL
             }
         }
 
-        public bool Delete(object user)
+        public bool Delete(int id)
         {
             try
             {
-                return userDal.Delete(user);
+                UserDTO userDto = userDal.GetAll().Find(user => user.UserId == id) ?? new UserDTO();
+                return userDal.Delete(userDto);
             }
             catch (Exception)
             {
@@ -38,12 +37,22 @@ namespace BL
             }
         }
 
-        public bool Get(object item)
+        public UserDTO Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                UserDTO userDto = userDal.GetAll().Find(user => user.UserId == id) ?? new UserDTO();
+                return userDto;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
-        public List<object> GetAll()
+
+        public List<UserDTO> GetAll()
         {
             try
             {
@@ -51,12 +60,12 @@ namespace BL
             }
             catch (Exception)
             {
-                return new List<object>();
+                return new List<UserDTO>();
             }
         }
 
 
-        public bool Update(object user)
+        public bool Update(UserDTO user)
         {
             try
             {

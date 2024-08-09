@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration; // צריך להוסיף את ה-namespace הזה
+using Microsoft.Extensions.Configuration;
 using BL;
 using DAL;
 

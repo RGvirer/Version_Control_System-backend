@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using DAL;
+using DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,46 +19,56 @@ namespace project_18_7.Controllers
 
         // GET: api/User
         [HttpGet]
-        public ActionResult<IEnumerable<User>> Get()
+        public ActionResult<IEnumerable<UserDTO>> Get()
         {
-            var users = _ibl.GetAll().ToList(); // אם GetAll מחזיר IEnumerable<User>
+            var users = _ibl.GetAll().ToList();
             return Ok(users);
         }
 
         // GET api/User/5
         [HttpGet("{id}")]
-        public ActionResult<User> Get(int id)
+        public ActionResult<UserDTO> Get(int id)
         {
-            var user = _ibl.Get(id); // אם Get מחזיר User
-            if (user == null)
+            try
             {
-                return NotFound();
+                var userDto = _ibl.Get(id);
+
+                if (userDto == null)
+                {
+                    return NotFound(); // מחזיר 404 אם המשתמש לא נמצא
+                }
+
+                return Ok(userDto); // מחזיר 200 עם ה-UserDTO שנמצא
             }
-            return Ok(user);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         // POST api/User
         [HttpPost]
-        public ActionResult Post([FromBody] User user)
+        public ActionResult Post([FromBody] UserDTO userDto)
         {
-            if (user == null)
+            if (userDto == null)
             {
                 return BadRequest("User cannot be null");
             }
 
-            var success = _ibl.AddNew(user); // אם AddNew מקבל User
+            var success = _ibl.AddNew(userDto);
             if (success)
             {
-                return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
+                return CreatedAtAction(nameof(Get), new { id = userDto.UserId }, userDto);
             }
             return StatusCode(500, "A problem occurred while handling your request.");
         }
 
         // PUT api/User/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] User user)
+        public ActionResult Put(int id, [FromBody] UserDTO userDto)
         {
-            if (user == null || user.UserId != id)
+            if (userDto == null || userDto.UserId != id)
             {
                 return BadRequest("User ID mismatch");
             }
@@ -68,7 +79,7 @@ namespace project_18_7.Controllers
                 return NotFound();
             }
 
-            var success = _ibl.Update(user);
+            var success = _ibl.Update(userDto);
             if (success)
             {
                 return NoContent();

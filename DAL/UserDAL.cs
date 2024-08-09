@@ -1,52 +1,92 @@
-﻿using DAL.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using DAL.Models;
+using DataTransferObjects;
 
 namespace DAL
 {
     public class UserDal : IDAL.IUserDAL
     {
         private readonly RivkiGvirerContext dbContext;
-        public UserDal(RivkiGvirerContext _dbContext)
+        private readonly IMapper mapper;
+
+        public UserDal(RivkiGvirerContext _dbContext, IMapper _mapper)
         {
             dbContext = _dbContext;
+            mapper = _mapper;
         }
-        public bool AddNew(object user)
+
+        public bool AddNew(UserDTO user)
         {
             try
             {
-                dbContext.Users.Add((User)user);
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<UserDTO, User>()
+                       .ForMember(m => m.PasswordHash, p => p.MapFrom(a => a.Password))
+                       .ReverseMap()
+                       .ForMember(m => m.YearCreated, p => p.MapFrom(a => a.CreatedAt.HasValue ? a.CreatedAt.Value.Year : (int?)null));
+                });
+
+                var localMapper = config.CreateMapper();
+                var entity = localMapper.Map<User>(user);
+
+                dbContext.Users.Add(entity);
                 dbContext.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
         }
 
-        public bool Delete(object user)
+        public bool Delete(UserDTO userDto)
         {
             try
             {
-                dbContext.Users.Remove((User)user);
-                dbContext.SaveChanges();
-                return true;
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<UserDTO, User>();
+                });
+
+                var localMapper = config.CreateMapper();
+                var userEntity = localMapper.Map<User>(userDto);
+
+                var userToDelete = dbContext.Users.Find(userEntity.UserId);
+                if (userToDelete != null)
+                {
+                    dbContext.Users.Remove(userToDelete);
+                    dbContext.SaveChanges();
+                    return true;
+                }
+                return false; // המשתמש לא נמצא
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                // טיפול בלוג או פעולות אחרות כדי להבין את הבעיה
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
-        public object Get(int id)
+
+        public UserDTO Get(int id)
         {
             try
             {
-                return dbContext.Users.Find(id);
+                var user = dbContext.Users.Find(id);
+                if (user == null) return null;
+
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<User, UserDTO>()
+                       .ForMember(m => m.Password, p => p.MapFrom(a => a.PasswordHash))
+                       .ForMember(m => m.YearCreated, p => p.MapFrom(a => a.CreatedAt.HasValue ? a.CreatedAt.Value.Year : 0));
+
+                    //m.YearCreated.HasValue ? new DateTime(a.YearCreated.Value, 1, 1) : (DateTime?)null));
+                });
+
+                var localMapper = config.CreateMapper();
+                return localMapper.Map<UserDTO>(user);
             }
             catch (Exception)
             {
@@ -54,16 +94,27 @@ namespace DAL
             }
         }
 
-        public bool Get(object item)
+        public bool GetAll(UserDTO item)
         {
             throw new NotImplementedException();
         }
 
-        public List<object> GetAll()
+        public List<UserDTO> GetAll()
         {
             try
             {
-                return dbContext.Users.Cast<object>().ToList();
+                var users = dbContext.Users.ToList();
+
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<User, UserDTO>()
+                       .ForMember(m => m.Password, p => p.MapFrom(a => a.PasswordHash))
+                       .ForMember(m => m.YearCreated, p => p.MapFrom(a => a.CreatedAt.HasValue ? a.CreatedAt.Value.Year : (int?)null));
+                });
+
+
+                var localMapper = config.CreateMapper();
+                return users.Select(user => localMapper.Map<UserDTO>(user)).ToList();
             }
             catch (Exception)
             {
@@ -71,12 +122,20 @@ namespace DAL
             }
         }
 
-
-        public bool Update(object user)
+        public bool Update(UserDTO user)
         {
             try
             {
-                dbContext.Users.Update((User)user);
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<UserDTO, User>()
+                       .ForMember(m => m.PasswordHash, p => p.MapFrom(a => a.Password));
+                });
+
+                var localMapper = config.CreateMapper();
+                var entity = localMapper.Map<User>(user);
+
+                dbContext.Users.Update(entity);
                 dbContext.SaveChanges();
                 return true;
             }

@@ -1,52 +1,85 @@
-﻿using DAL.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using DAL.Models;
+using DataTransferObjects;
 
 namespace DAL
 {
-    public class DepartmentDAL : IDAL.IObjectDAL
+    public class DepartmentDal : IDAL.IDepartmentDAL
     {
         private readonly RivkiGvirerContext dbContext;
-        public DepartmentDAL(RivkiGvirerContext _dbContext)
+        private readonly IMapper mapper;
+
+        public DepartmentDal(RivkiGvirerContext _dbContext, IMapper _mapper)
         {
             dbContext = _dbContext;
+            mapper = _mapper;
         }
-        public bool AddNew(object department)
+
+        public bool AddNew(DepartmentDTO department)
         {
             try
             {
-                dbContext.Departments.Add((Department)department);
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<DepartmentDTO, Department>();
+                });
+
+                var localMapper = config.CreateMapper();
+                var entity = localMapper.Map<Department>(department);
+
+                dbContext.Departments.Add(entity);
                 dbContext.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
         }
 
-        public bool Delete(object department)
+        public bool Delete(DepartmentDTO departmentDto)
         {
             try
             {
-                dbContext.Departments.Remove((Department)department);
-                dbContext.SaveChanges();
-                return true;
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<DepartmentDTO, Department>();
+                });
+
+                var localMapper = config.CreateMapper();
+                var departmentEntity = localMapper.Map<Department>(departmentDto);
+
+                var departmentToDelete = dbContext.Departments.Find(departmentEntity.DepartmentId);
+                if (departmentToDelete != null)
+                {
+                    dbContext.Departments.Remove(departmentToDelete);
+                    dbContext.SaveChanges();
+                    return true;
+                }
+                return false; // המשתמש לא נמצא
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                // טיפול בלוג או פעולות אחרות כדי להבין את הבעיה
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
-        public object Get(int id)
+
+        public DepartmentDTO Get(int id)
         {
             try
             {
-                return dbContext.Departments.Find(id);
+                var department = dbContext.Departments.Find(id);
+                if (department == null) return null;
+
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<Department, DepartmentDTO>();
+                });
+
+                var localMapper = config.CreateMapper();
+                return localMapper.Map<DepartmentDTO>(department);
             }
             catch (Exception)
             {
@@ -54,16 +87,19 @@ namespace DAL
             }
         }
 
-        public bool Get(object item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<object> GetAll()
+        public List<DepartmentDTO> GetAll()
         {
             try
             {
-                return dbContext.Departments.Cast<object>().ToList();
+                var departments = dbContext.Departments.ToList();
+
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<Department, DepartmentDTO>();
+                });
+
+                var localMapper = config.CreateMapper();
+                return departments.Select(department => localMapper.Map<DepartmentDTO>(departments)).ToList();
             }
             catch (Exception)
             {
@@ -71,12 +107,19 @@ namespace DAL
             }
         }
 
-
-        public bool Update(object department)
+        public bool Update(DepartmentDTO department)
         {
             try
             {
-                dbContext.Departments.Update((Department)department);
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<DepartmentDTO, Department>();
+                });
+
+                var localMapper = config.CreateMapper();
+                var entity = localMapper.Map<Department>(department);
+
+                dbContext.Departments.Update(entity);
                 dbContext.SaveChanges();
                 return true;
             }

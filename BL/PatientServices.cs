@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataTransferObjects;
 using IDAL;
 using Microsoft.EntityFrameworkCore;
 
 namespace BL
 {
-    public class PatientsServices : IBL.IObjectBL
+    public class PatientsServices : IBL.IPatientBL
     {
-        private readonly IObjectDAL patientDAL;
-        public PatientsServices(IObjectDAL _patientDAL)
+        private readonly IPatientDAL patientDAL;
+        public PatientsServices(IPatientDAL _patientDAL)
         {
             patientDAL = _patientDAL;
         }
 
-        public bool AddNew(object patient)
+        public bool AddNew(PatientDTO patient)
         {
             try
             {
@@ -26,11 +27,12 @@ namespace BL
             }
         }
 
-        public bool Delete(object patient)
+        public bool Delete(int id)
         {
             try
             {
-                return patientDAL.Delete(patient);
+                PatientDTO patientDto = patientDAL.GetAll().Find(patient => patient.PatientId == id) ?? new PatientDTO();
+                return patientDAL.Delete(patientDto);
             }
             catch (Exception)
             {
@@ -38,12 +40,21 @@ namespace BL
             }
         }
 
-        public bool Get(object item)
+        public bool Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                PatientDTO patientDto = patientDal.GetAll().Find(patient => patient.UserId == id) ?? new UserDTO();
+                return patientDto;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
-        public List<object> GetAll()
+        public List<PatientDTO> GetAll()
         {
             try
             {
@@ -51,12 +62,12 @@ namespace BL
             }
             catch (Exception)
             {
-                return new List<object>();
+                return new List<PatientDTO>();
             }
         }
 
 
-        public bool Update(object patient)
+        public bool Update(PatientDTO patient)
         {
             try
             {

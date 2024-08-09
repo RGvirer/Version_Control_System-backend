@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Accessories\Accessories.csproj" />
     <ProjectReference Include="..\DAL\DAL.csproj" />
+    <ProjectReference Include="..\DataTransferObjects\DataTransferObjects.csproj" />
     <ProjectReference Include="..\IBL\IBL.csproj" />
   </ItemGroup>
 

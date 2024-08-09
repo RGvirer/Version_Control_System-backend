@@ -1,43 +1,108 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DAL;
+using DataTransferObjects;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace lesson218._07EF_API.Controllers
+namespace project_18_7.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentController : ControllerBase
     {
-        // GET: api/<DepartmentController>
+        private readonly IBL.IDepartmentBL _ibl;
+
+        public DepartmentController(IBL.IDepartmentBL ibl)
+        {
+            _ibl = ibl;
+        }
+
+        // GET: api/Department
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<IEnumerable<DepartmentDTO>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var departments = _ibl.GetAll().ToList();
+            return Ok(departments);
         }
 
-        // GET api/<DepartmentController>/5
+        // GET api/Department/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<DepartmentDTO> Get(int id)
         {
-            return "value";
+            try
+            {
+                var departmentDto = _ibl.Get(id);
+
+                if (departmentDto == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(departmentDto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(500, "Internal server error");
+            }
         }
 
-        // POST api/<DepartmentController>
+        // POST api/Department
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult Post([FromBody] DepartmentDTO departmentDto)
         {
+            if (departmentDto == null)
+            {
+                return BadRequest("Department cannot be null");
+            }
+
+            var success = _ibl.AddNew(departmentDto);
+            if (success)
+            {
+                return CreatedAtAction(nameof(Get), new { id = departmentDto.DepartmentId }, departmentDto);
+            }
+            return StatusCode(500, "A problem occurred while handling your request.");
         }
 
-        // PUT api/<DepartmentController>/5
+        // PUT api/Department/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult Put(int id, [FromBody] DepartmentDTO departmentDto)
         {
+            if (departmentDto == null || departmentDto.DepartmentId != id)
+            {
+                return BadRequest("Department ID mismatch");
+            }
+
+            var existingDepartment = _ibl.Get(id);
+            if (existingDepartment == null)
+            {
+                return NotFound();
+            }
+
+            var success = _ibl.Update(departmentDto);
+            if (success)
+            {
+                return NoContent();
+            }
+            return StatusCode(500, "A problem occurred while handling your request.");
         }
 
-        // DELETE api/<DepartmentController>/5
+        // DELETE api/Department/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
+            var existingDepartment = _ibl.Get(id);
+            if (existingDepartment == null)
+            {
+                return NotFound();
+            }
+
+            var success = _ibl.Delete(existingDepartment);
+            if (success)
+            {
+                return NoContent();
+            }
+            return StatusCode(500, "A problem occurred while handling your request.");
         }
     }
 }

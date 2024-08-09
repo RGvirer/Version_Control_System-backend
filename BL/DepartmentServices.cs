@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using DataTransferObjects;
+using IBL;
 using IDAL;
-using Microsoft.EntityFrameworkCore;
 
 namespace BL
 {
-    public class DepartmentServices : IBL.IObjectBL
+    public class DepartmentServices : IBL.IDepartmentBL
     {
-        private readonly IObjectDAL departmentDAL;
-        public DepartmentServices(IObjectDAL _departmentDAL)
+        private readonly IDepartmentDAL departmentDal;
+        public DepartmentServices(IDepartmentDAL _departmentDAL)
         {
-            departmentDAL = _departmentDAL;
+            departmentDal = _departmentDAL;
         }
 
-        public bool AddNew(object department)
+        public bool AddNew(DepartmentDTO department)
         {
             try
             {
-                return departmentDAL.AddNew(department);
+                return departmentDal.AddNew(department);
             }
             catch (Exception)
             {
@@ -26,11 +24,12 @@ namespace BL
             }
         }
 
-        public bool Delete(object department)
+        public bool Delete(int id)
         {
             try
             {
-                return departmentDAL.Delete(department);
+                DepartmentDTO departmentDto = departmentDal.GetAll().Find(department => department.DepartmentId == id) ?? new DepartmentDTO();
+                return departmentDal.Delete(departmentDto);
             }
             catch (Exception)
             {
@@ -38,12 +37,21 @@ namespace BL
             }
         }
 
-        public bool Get(object item)
+        public DepartmentDTO Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DepartmentDTO departmentDto = departmentDal.GetAll().Find(department => department.DepartmentId == id) ?? new DepartmentDTO();
+                return departmentDto;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
-        public List<object> GetAll()
+        public List<DepartmentDTO> GetAll()
         {
             try
             {
@@ -51,12 +59,12 @@ namespace BL
             }
             catch (Exception)
             {
-                return new List<object>();
+                return new List<DepartmentDTO>();
             }
         }
 
 
-        public bool Update(object department)
+        public bool Update(DepartmentDTO department)
         {
             try
             {
@@ -67,5 +75,7 @@ namespace BL
                 return false;
             }
         }
+
+
     }
 }
