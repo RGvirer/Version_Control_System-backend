@@ -91,13 +91,7 @@ namespace project_18_7.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            var existingDepartment = _ibl.Get(id);
-            if (existingDepartment == null)
-            {
-                return NotFound();
-            }
-
-            var success = _ibl.Delete(existingDepartment);
+            var success = _ibl.Delete(id);
             if (success)
             {
                 return NoContent();

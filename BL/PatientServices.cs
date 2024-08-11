@@ -9,17 +9,17 @@ namespace BL
 {
     public class PatientsServices : IBL.IPatientBL
     {
-        private readonly IPatientDAL patientDAL;
+        private readonly IPatientDAL patientDal;
         public PatientsServices(IPatientDAL _patientDAL)
         {
-            patientDAL = _patientDAL;
+            patientDal = _patientDAL;
         }
 
         public bool AddNew(PatientDTO patient)
         {
             try
             {
-                return patientDAL.AddNew(patient);
+                return patientDal.AddNew(patient);
             }
             catch (Exception)
             {
@@ -31,8 +31,8 @@ namespace BL
         {
             try
             {
-                PatientDTO patientDto = patientDAL.GetAll().Find(patient => patient.PatientId == id) ?? new PatientDTO();
-                return patientDAL.Delete(patientDto);
+                PatientDTO patientDto = patientDal.GetAll().Find(patient => patient.PatientId == id) ?? new PatientDTO();
+                return patientDal.Delete(patientDto);
             }
             catch (Exception)
             {
@@ -40,11 +40,11 @@ namespace BL
             }
         }
 
-        public bool Get(int id)
+        public PatientDTO Get(int id)
         {
             try
             {
-                PatientDTO patientDto = patientDal.GetAll().Find(patient => patient.UserId == id) ?? new UserDTO();
+                PatientDTO patientDto = patientDal.GetAll().Find(patient => patient.PatientId == id) ?? new PatientDTO();
                 return patientDto;
             }
             catch (Exception ex)
@@ -58,7 +58,7 @@ namespace BL
         {
             try
             {
-                return patientDAL.GetAll();
+                return patientDal.GetAll();
             }
             catch (Exception)
             {
@@ -71,7 +71,7 @@ namespace BL
         {
             try
             {
-                return patientDAL.Update(patient);
+                return patientDal.Update(patient);
             }
             catch (Exception)
             {

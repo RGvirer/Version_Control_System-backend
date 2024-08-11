@@ -55,7 +55,7 @@ namespace BL
         {
             try
             {
-                return departmentDAL.GetAll();
+                return departmentDal.GetAll();
             }
             catch (Exception)
             {
@@ -68,7 +68,7 @@ namespace BL
         {
             try
             {
-                return departmentDAL.Update(department);
+                return departmentDal.Update(department);
             }
             catch (Exception)
             {

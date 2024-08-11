@@ -10,9 +10,9 @@ namespace IBL
     public interface IPatientBL
     {
         public List<PatientDTO> GetAll();
-        public bool Get(PatientDTO item);
+        public PatientDTO Get(int id);
         public bool AddNew(PatientDTO item);
-        public bool Delete(PatientDTO item);
+        public bool Delete(int id);
         public bool Update(PatientDTO item);
     }
 }

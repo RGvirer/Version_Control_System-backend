@@ -14,6 +14,9 @@ namespace DAL
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped(typeof(IDAL.IUserDAL), typeof(DAL.UserDal));
+            services.AddScoped(typeof(IDAL.IDepartmentDAL), typeof(DAL.DepartmentDal));
+            services.AddScoped(typeof(IDAL.IPatientDAL), typeof(DAL.PatientDal));
+
             services.AddDbContext<RivkiGvirerContext>(options =>
                                 options.UseSqlServer());
 

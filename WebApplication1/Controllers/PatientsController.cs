@@ -91,13 +91,7 @@ namespace project_18_7.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            var existingPatient = _ibl.Get(id);
-            if (existingPatient == null)
-            {
-                return NotFound();
-            }
-
-            var success = _ibl.Delete(existingPatient);
+            var success = _ibl.Delete(id);
             if (success)
             {
                 return NoContent();
