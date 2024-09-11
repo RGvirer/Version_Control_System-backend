@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IDAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+571a88ec5fb6face322d1be91a1190e6e7927255")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e418d246ba8112f2ee363abfd93452d7702a0ea2")]
 [assembly: System.Reflection.AssemblyProductAttribute("IDAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IDAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
