@@ -1,0 +1,13 @@
+C:\Users\USER\source\repos\VersionMmanagementSystem\VersionMmanagementSystem\obj\Debug\net8.0\VersionMmanagementSystem.csproj.AssemblyReference.cache
+C:\Users\USER\source\repos\VersionMmanagementSystem\VersionMmanagementSystem\obj\Debug\net8.0\VersionMmanagementSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\source\repos\VersionMmanagementSystem\VersionMmanagementSystem\obj\Debug\net8.0\VersionMmanagementSystem.AssemblyInfoInputs.cache
+C:\Users\USER\source\repos\VersionMmanagementSystem\VersionMmanagementSystem\obj\Debug\net8.0\VersionMmanagementSystem.AssemblyInfo.cs
+C:\Users\USER\source\repos\VersionMmanagementSystem\VersionMmanagementSystem\obj\Debug\net8.0\VersionMmanagementSystem.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\VersionMmanagementSystem\VersionMmanagementSystem\obj\Debug\net8.0\VersionMmanagementSystem.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\USER\source\repos\EF-API\VersionMmanagementSystem\obj\Debug\net8.0\VersionMmanagementSystem.csproj.AssemblyReference.cache
+C:\Users\USER\source\repos\EF-API\VersionMmanagementSystem\obj\Debug\net8.0\VersionMmanagementSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\source\repos\EF-API\VersionMmanagementSystem\obj\Debug\net8.0\VersionMmanagementSystem.AssemblyInfoInputs.cache
+C:\Users\USER\source\repos\EF-API\VersionMmanagementSystem\obj\Debug\net8.0\VersionMmanagementSystem.AssemblyInfo.cs
+C:\Users\USER\source\repos\EF-API\VersionMmanagementSystem\obj\Debug\net8.0\VersionMmanagementSystem.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\EF-API\VersionMmanagementSystem\obj\Debug\net8.0\VersionMmanagementSystem.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\USER\source\repos\EF-API\VersionMmanagementSystem\obj\Debug\net8.0\VersionMmanagementSystem.sourcelink.json

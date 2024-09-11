@@ -5,17 +5,16 @@ namespace DAL.Models;
 
 public partial class User
 {
-    public int UserId { get; set; }
+    public int Id { get; set; }
 
-    public string UserName { get; set; } = null!;
+    public string Username { get; set; } = null!;
 
-    public string? Email { get; set; }
+    public string Email { get; set; } = null!;
 
-    public string PasswordHash { get; set; } = null!;
+    public DateTime CreatedAt { get; set; }
+    public string PasswordHash { get; set; } = null!;   
 
-    public DateTime? CreatedAt { get; set; }
+    public virtual ICollection<Repository> Repositories { get; set; } = new List<Repository>();
 
-    public virtual ICollection<UserGroupMembership> UserGroupMemberships { get; set; } = new List<UserGroupMembership>();
-
-    public virtual ICollection<UserPermission> UserPermissions { get; set; } = new List<UserPermission>();
+    public virtual ICollection<Version> Versions { get; set; } = new List<Version>();
 }

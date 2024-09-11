@@ -10,14 +10,14 @@ namespace DAL
     {
         public static IServiceCollection AddDALDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<RivkiGvirerContext>(options =>
+            services.AddDbContext<VersionMmanagementSystemContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped(typeof(IDAL.IUserDAL), typeof(DAL.UserDal));
-            services.AddScoped(typeof(IDAL.IDepartmentDAL), typeof(DAL.DepartmentDal));
-            services.AddScoped(typeof(IDAL.IPatientDAL), typeof(DAL.PatientDal));
+            services.AddScoped(typeof(IDAL.IRepositoryDAL), typeof(DAL.RepositoryDal));
+            services.AddScoped(typeof(IDAL.IBranchDAL), typeof(DAL.BranchDal));
 
-            services.AddDbContext<RivkiGvirerContext>(options =>
+            services.AddDbContext<VersionMmanagementSystemContext>(options =>
                                 options.UseSqlServer());
 
             return services;

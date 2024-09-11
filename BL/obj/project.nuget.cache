@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "jvUbn5OY0Bg=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\USER\\source\\repos\\EF-API\\BL\\BL.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

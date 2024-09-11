@@ -1,0 +1,11 @@
+C:\Users\USER\source\repos\VersionMmanagementSystem\Accessories\obj\Debug\net8.0\Accessories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\source\repos\VersionMmanagementSystem\Accessories\obj\Debug\net8.0\Accessories.AssemblyInfoInputs.cache
+C:\Users\USER\source\repos\VersionMmanagementSystem\Accessories\obj\Debug\net8.0\Accessories.AssemblyInfo.cs
+C:\Users\USER\source\repos\VersionMmanagementSystem\Accessories\obj\Debug\net8.0\Accessories.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\VersionMmanagementSystem\Accessories\obj\Debug\net8.0\Accessories.csproj.AssemblyReference.cache
+C:\Users\USER\source\repos\EF-API\Accessories\obj\Debug\net8.0\Accessories.csproj.AssemblyReference.cache
+C:\Users\USER\source\repos\EF-API\Accessories\obj\Debug\net8.0\Accessories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\source\repos\EF-API\Accessories\obj\Debug\net8.0\Accessories.AssemblyInfoInputs.cache
+C:\Users\USER\source\repos\EF-API\Accessories\obj\Debug\net8.0\Accessories.AssemblyInfo.cs
+C:\Users\USER\source\repos\EF-API\Accessories\obj\Debug\net8.0\Accessories.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\EF-API\Accessories\obj\Debug\net8.0\Accessories.sourcelink.json

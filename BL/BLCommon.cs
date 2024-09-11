@@ -8,8 +8,8 @@ namespace BL
         public static IServiceCollection AddBLDependencies(this IServiceCollection services)
         {
             services.AddScoped<IUserBL, UserServices>(); // Make sure UserServices implements IUserBL
-            services.AddScoped<IDepartmentBL, DepartmentServices>();
-            services.AddScoped<IPatientBL, PatientsServices>();
+            services.AddScoped<IRepositoryBL, RepositoryServices>();
+            services.AddScoped<IBranchBL, BranchServices>();
             return services;
         }
     }

@@ -6,10 +6,10 @@ namespace DAL
 {
     public class UserDal : IDAL.IUserDAL
     {
-        private readonly RivkiGvirerContext dbContext;
+        private readonly VersionMmanagementSystemContext dbContext;
         private readonly IMapper mapper;
 
-        public UserDal(RivkiGvirerContext _dbContext, IMapper _mapper)
+        public UserDal(VersionMmanagementSystemContext _dbContext, IMapper _mapper)
         {
             dbContext = _dbContext;
             mapper = _mapper;
@@ -52,7 +52,7 @@ namespace DAL
                 var localMapper = config.CreateMapper();
                 var userEntity = localMapper.Map<User>(userDto);
 
-                var userToDelete = dbContext.Users.Find(userEntity.UserId);
+                var userToDelete = dbContext.Users.Find(userEntity.Id);
                 if (userToDelete != null)
                 {
                     dbContext.Users.Remove(userToDelete);
