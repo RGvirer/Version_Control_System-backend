@@ -1,6 +1,14 @@
-# Version Control System (VCS)
+# ZipHub
+
+## Version Control System (VCS)
 
 A version control system (VCS) implemented in C# using Entity Framework Core. The system supports users, repositories, branches, versions (commits), and merges.
+
+## Why "ZipHub"?
+
+A zipper is a perfect metaphor for a version control system (VCS). Just like a zipper connects two sides into a unified line, ZipHub merges code changes into a cohesive whole. It also allows you to "unzip," revisiting previous versions when needed. 
+
+ZipHub represents the seamless merging of individual contributions, offering flexibility, control, and the ability to track and manage your project's evolution.
 
 ## Table of Contents
 
