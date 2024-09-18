@@ -15,7 +15,7 @@ namespace DAL
             mapper = _mapper;
         }
 
-        public bool AddNew(UserDTO user)
+          public bool AddNew(UserDTO user)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace DAL
                     cfg.CreateMap<UserDTO, User>()
                        .ForMember(m => m.PasswordHash, p => p.MapFrom(a => a.Password))
                        .ReverseMap()
-                       .ForMember(m => m.YearCreated, p => p.MapFrom(a => a.CreatedAt.HasValue ? a.CreatedAt.Value.Year : (int?)null));
+                       .ForMember(m => m.YearCreated, p => p.MapFrom(a => a.CreatedAt.Year));
                 });
 
                 var localMapper = config.CreateMapper();
@@ -52,7 +52,7 @@ namespace DAL
                 var localMapper = config.CreateMapper();
                 var userEntity = localMapper.Map<User>(userDto);
 
-                var userToDelete = dbContext.Users.Find(userEntity.Id);
+                var userToDelete = dbContext.Users.Find(userEntity.UserId);
                 if (userToDelete != null)
                 {
                     dbContext.Users.Remove(userToDelete);
@@ -80,9 +80,7 @@ namespace DAL
                 {
                     cfg.CreateMap<User, UserDTO>()
                        .ForMember(m => m.Password, p => p.MapFrom(a => a.PasswordHash))
-                       .ForMember(m => m.YearCreated, p => p.MapFrom(a => a.CreatedAt.HasValue ? a.CreatedAt.Value.Year : 0));
-
-                    //m.YearCreated.HasValue ? new DateTime(a.YearCreated.Value, 1, 1) : (DateTime?)null));
+                       .ForMember(m => m.YearCreated, p => p.MapFrom(a => a.CreatedAt.Year));
                 });
 
                 var localMapper = config.CreateMapper();
@@ -109,7 +107,7 @@ namespace DAL
                 {
                     cfg.CreateMap<User, UserDTO>()
                        .ForMember(m => m.Password, p => p.MapFrom(a => a.PasswordHash))
-                       .ForMember(m => m.YearCreated, p => p.MapFrom(a => a.CreatedAt.HasValue ? a.CreatedAt.Value.Year : (int?)null));
+                       .ForMember(m => m.YearCreated, p => p.MapFrom(a => a.CreatedAt.Year));
                 });
 
 

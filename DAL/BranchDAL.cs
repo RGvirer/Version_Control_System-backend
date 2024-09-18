@@ -2,7 +2,6 @@
 using DAL.Models;
 using DataTransferObjects;
 
-
 namespace DAL
 {
     public class BranchDal : IDAL.IBranchDAL
@@ -67,6 +66,26 @@ namespace DAL
             }
         }
 
+        public List<BranchDTO> GetAll()
+        {
+            try
+            {
+                var branches = dbContext.Branches.ToList();
+
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<Branch, BranchDTO>();
+                });
+
+
+                var localMapper = config.CreateMapper();
+                return branches.Select(merge => localMapper.Map<BranchDTO>(branches)).ToList();
+            }
+            catch (Exception)
+            {
+                throw new NotImplementedException();
+            }
+        }
         public BranchDTO Get(int id)
         {
             try
@@ -85,31 +104,6 @@ namespace DAL
             catch (Exception)
             {
                 return null;
-            }
-        }
-
-        public bool GetAll(BranchDTO item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<BranchDTO> GetAll()
-        {
-            try
-            {
-                var branchs = dbContext.Branches.ToList();
-
-                var config = new MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<Branch, BranchDTO>();
-                });
-
-                var localMapper = config.CreateMapper();
-                return branchs.Select(branch => localMapper.Map<BranchDTO>(branch)).ToList();
-            }
-            catch (Exception)
-            {
-                throw new NotImplementedException();
             }
         }
 

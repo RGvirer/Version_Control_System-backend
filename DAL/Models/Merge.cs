@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DAL.Models;
+﻿namespace DAL.Models;
 
 public partial class Merge
 {
-    public int Id { get; set; }
+    public int MergeId { get; set; }
 
     public int SourceBranchId { get; set; }
 

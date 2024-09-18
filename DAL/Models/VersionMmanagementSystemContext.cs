@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Models;
 
@@ -33,7 +31,7 @@ public partial class VersionMmanagementSystemContext : DbContext
     {
         modelBuilder.Entity<Branch>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Branches__3214EC079A5B680E");
+            entity.HasKey(e => e.BranchId).HasName("PK__Branches__3214EC079A5B680E");
 
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -48,7 +46,7 @@ public partial class VersionMmanagementSystemContext : DbContext
 
         modelBuilder.Entity<Merge>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Merges__3214EC07B7EC65BE");
+            entity.HasKey(e => e.MergeId).HasName("PK__Merges__3214EC07B7EC65BE");
 
             entity.Property(e => e.MergedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -67,7 +65,7 @@ public partial class VersionMmanagementSystemContext : DbContext
 
         modelBuilder.Entity<Repository>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Reposito__3214EC07DEFDFBA0");
+            entity.HasKey(e => e.RepositoryId).HasName("PK__Reposito__3214EC07DEFDFBA0");
 
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -83,7 +81,7 @@ public partial class VersionMmanagementSystemContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC07B0BB39F7");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__3214EC07B0BB39F7");
 
             entity.HasIndex(e => e.Username, "UQ__Users__536C85E4ABBBBEAC").IsUnique();
 
@@ -98,7 +96,7 @@ public partial class VersionMmanagementSystemContext : DbContext
 
         modelBuilder.Entity<Version>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Versions__3214EC07143246E9");
+            entity.HasKey(e => e.VersionId).HasName("PK__Versions__3214EC07143246E9");
 
             entity.Property(e => e.Content).HasColumnType("text");
             entity.Property(e => e.CreatedAt)

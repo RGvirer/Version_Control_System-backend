@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DAL.Models;
+﻿namespace DAL.Models;
 
 public partial class Repository
 {
-    public int Id { get; set; }
+    public int RepositoryId { get; set; }
 
     public string Name { get; set; } = null!;
 

@@ -3,19 +3,19 @@ using IDAL;
 
 namespace BL
 {
-    public class BranchServices : IBL.IBranchBL
+    public class MergeServices : IBL.IMergeBL
     {
-        private readonly IBranchDAL branchDal;
-        public BranchServices(IBranchDAL _branchDAL)
+        private readonly IMergeDAL mergeDal;
+        public MergeServices(IMergeDAL _mergeDal)
         {
-            branchDal = _branchDAL;
+            mergeDal = _mergeDal;
         }
 
-        public bool AddNew(BranchDTO branch)
+        public bool AddNew(MergeDTO merge)
         {
             try
             {
-                return branchDal.AddNew(branch);
+                return mergeDal.AddNew(merge);
             }
             catch (Exception)
             {
@@ -27,8 +27,8 @@ namespace BL
         {
             try
             {
-                BranchDTO branchDto = branchDal.GetAll().Find(branch => branch.BranchId == id) ?? new BranchDTO();
-                return branchDal.Delete(branchDto);
+                MergeDTO mergeDto = mergeDal.GetAll().Find(merge => merge.MergeId == id) ?? new MergeDTO();
+                return mergeDal.Delete(mergeDto);
             }
             catch (Exception)
             {
@@ -36,12 +36,12 @@ namespace BL
             }
         }
 
-        public BranchDTO Get(int id)
+        public MergeDTO Get(int id)
         {
             try
             {
-                BranchDTO branchDto = branchDal.GetAll().Find(branch => branch.BranchId == id) ?? new BranchDTO();
-                return branchDto;
+                MergeDTO mergeDto = mergeDal.GetAll().Find(merge => merge.MergeId == id) ?? new MergeDTO();
+                return mergeDto;
             }
             catch (Exception ex)
             {
@@ -50,29 +50,31 @@ namespace BL
             }
         }
 
-        public List<BranchDTO> GetAll()
+        public List<MergeDTO> GetAll()
         {
             try
             {
-                return branchDal.GetAll();
+                return mergeDal.GetAll();
             }
             catch (Exception)
             {
-                return new List<BranchDTO>();
+                return new List<MergeDTO>();
             }
         }
 
 
-        public bool Update(BranchDTO branch)
+        public bool Update(MergeDTO merge)
         {
             try
             {
-                return branchDal.Update(branch);
+                return mergeDal.Update(merge);
             }
             catch (Exception)
             {
                 return false;
             }
         }
+
+
     }
 }
