@@ -19,7 +19,7 @@ namespace BL
                 var success = userDal.AddNew(user);
                 if (!success)
                 {
-                    Console.WriteLine("Failed to add user in DAL.");
+                    Console.WriteLine("Failed to add user in BL.");
                 }
                 return success;
             }

@@ -15,10 +15,12 @@ namespace DAL
             mapper = _mapper;
         }
 
-          public bool AddNew(UserDTO user)
+        public bool AddNew(UserDTO user)
         {
             try
             {
+                user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
                 var config = new MapperConfiguration(cfg =>
                 {
                     cfg.CreateMap<UserDTO, User>()
@@ -37,6 +39,7 @@ namespace DAL
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in DAL AddNew: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
                 return false;
             }
         }
