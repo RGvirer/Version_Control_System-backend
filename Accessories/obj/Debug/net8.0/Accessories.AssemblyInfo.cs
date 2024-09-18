@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Accessories")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+93c1f4881dbc9f7eff9ee418fe0e5cec48522a11")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d9c3e8d973e8e33e70c97d34688be7b66b911e2d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Accessories")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Accessories")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
