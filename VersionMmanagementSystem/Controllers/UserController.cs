@@ -53,12 +53,21 @@ namespace project_18_7.Controllers
                 return BadRequest("User cannot be null");
             }
 
-            var success = _ibl.AddNew(userDto);
-            if (success)
+            try
             {
-                return CreatedAtAction(nameof(Get), new { id = userDto.UserId }, userDto);
+                var success = _ibl.AddNew(userDto);
+                if (success)
+                {
+                    return CreatedAtAction(nameof(Get), new { id = userDto.UserId }, userDto);
+                }
+                return StatusCode(500, "Failed to add new user.");
             }
-            return StatusCode(500, "A problem occurred while handling your request.");
+            catch (Exception ex)
+            {
+                // הוספת פרטי השגיאה לקובץ הלוג או למסוף
+                Console.WriteLine(ex.Message);
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         // PUT api/User/5

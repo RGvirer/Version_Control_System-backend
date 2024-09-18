@@ -34,8 +34,9 @@ namespace DAL
                 dbContext.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine($"Error in DAL AddNew: {ex.Message}");
                 return false;
             }
         }

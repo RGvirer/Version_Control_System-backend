@@ -16,13 +16,20 @@ namespace BL
         {
             try
             {
-                return userDal.AddNew(user);
+                var success = userDal.AddNew(user);
+                if (!success)
+                {
+                    Console.WriteLine("Failed to add user in DAL.");
+                }
+                return success;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine($"Error in AddNew method: {ex.Message}");
                 return false;
             }
         }
+
 
         public bool Delete(int id)
         {
