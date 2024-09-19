@@ -55,8 +55,8 @@ namespace DAL
 
                 var localMapper = config.CreateMapper();
                 var userEntity = localMapper.Map<User>(userDto);
-
                 var userToDelete = dbContext.Users.Find(userEntity.UserId);
+
                 if (userToDelete != null)
                 {
                     dbContext.Users.Remove(userToDelete);

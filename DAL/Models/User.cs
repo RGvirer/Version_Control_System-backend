@@ -12,6 +12,5 @@ public partial class User
     public string PasswordHash { get; set; } = null!;
 
     public virtual ICollection<Repository> Repositories { get; set; } = new List<Repository>();
-
     public virtual ICollection<Version> Versions { get; set; } = new List<Version>();
 }

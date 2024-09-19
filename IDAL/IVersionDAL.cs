@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataTransferObjects;
 
 namespace IDAL
 {
-    internal interface IVersionDAL
+    public interface IVersionDAL
     {
+        public bool AddNew(VersionDTO entity);
+        public VersionDTO Get(int id);
+        public List<VersionDTO> GetAll();
+        public bool Update(VersionDTO entity);
+        public bool Delete(VersionDTO entity);
     }
 }

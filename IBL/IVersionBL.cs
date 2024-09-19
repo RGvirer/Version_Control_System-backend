@@ -2,7 +2,7 @@
 
 namespace IBL
 {
-    internal interface IVersionBL
+    public interface IVersionBL
     {
         public List<VersionDTO> GetAll();
         public VersionDTO Get(int id);
