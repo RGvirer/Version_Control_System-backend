@@ -1,43 +1,108 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataTransferObjects;
+using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace VersionMmanagementSystem.Controllers
+namespace project_18_7.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class RepositoryController : ControllerBase
     {
-        // GET: api/<RepositoryController>
+        private readonly IBL.IRepositoryBL _ibl;
+
+        public RepositoryController(IBL.IRepositoryBL ibl)
+        {
+            _ibl = ibl;
+        }
+
+        // GET: api/Repository
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<IEnumerable<RepositoryDTO>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var repositoryes = _ibl.GetAll().ToList();
+            return Ok(repositoryes);
         }
 
-        // GET api/<RepositoryController>/5
+        // GET api/Repository/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<RepositoryDTO> Get(int id)
         {
-            return "value";
+            try
+            {
+                var repositoryDto = _ibl.Get(id);
+
+                if (repositoryDto == null)
+                {
+                    return NotFound(); // מחזיר 404 אם המשתמש לא נמצא
+                }
+
+                return Ok(repositoryDto); // מחזיר 200 עם ה-RepositoryDTO שנמצא
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(500, "Internal server error");
+            }
         }
 
-        // POST api/<RepositoryController>
+        // POST api/Repository
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult Post([FromBody] RepositoryDTO repositoryDto)
         {
+            if (repositoryDto == null)
+            {
+                return BadRequest("Repository cannot be null");
+            }
+
+            try
+            {
+                var success = _ibl.AddNew(repositoryDto);
+                if (success)
+                {
+                    return CreatedAtAction(nameof(Get), new { id = repositoryDto.RepositoryId }, repositoryDto);
+                }
+                return StatusCode(500, "Failed to add new repository.");
+            }
+            catch (Exception ex)
+            {
+                // הוספת פרטי השגיאה לקובץ הלוג או למסוף
+                Console.WriteLine(ex.Message);
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
-        // PUT api/<RepositoryController>/5
+        // PUT api/Repository/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult Put(int id, [FromBody] RepositoryDTO repositoryDto)
         {
+            if (repositoryDto == null || repositoryDto.RepositoryId != id)
+            {
+                return BadRequest("Repository ID mismatch");
+            }
+
+            var existingRepository = _ibl.Get(id);
+            if (existingRepository == null)
+            {
+                return NotFound();
+            }
+
+            var success = _ibl.Update(repositoryDto);
+            if (success)
+            {
+                return NoContent();
+            }
+            return StatusCode(500, "A problem occurred while handling your request.");
         }
 
-        // DELETE api/<RepositoryController>/5
+        // DELETE api/Repository/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
+            var success = _ibl.Delete(id);
+            if (success)
+            {
+                return NoContent();
+            }
+            return StatusCode(500, "A problem occurred while handling your request.");
         }
     }
 }

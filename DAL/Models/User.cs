@@ -9,6 +9,7 @@ public partial class User
     public string Email { get; set; } = null!;
 
     public DateTime CreatedAt { get; set; }
+
     public string PasswordHash { get; set; } = null!;
 
     public virtual ICollection<Repository> Repositories { get; set; } = new List<Repository>();
