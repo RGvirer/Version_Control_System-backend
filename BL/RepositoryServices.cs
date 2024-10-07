@@ -1,5 +1,4 @@
 ﻿using DataTransferObjects;
-using IBL;
 using IDAL;
 
 namespace BL
@@ -16,6 +15,11 @@ namespace BL
         {
             try
             {
+                if (repository.OwnerId <= 0)
+                {
+                    throw new ArgumentException("OwnerId must be a valid user ID.");
+                }
+
                 return repositoryDal.AddNew(repository);
             }
             catch (Exception)
