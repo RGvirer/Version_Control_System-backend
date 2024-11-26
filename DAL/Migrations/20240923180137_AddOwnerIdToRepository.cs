@@ -11,14 +11,14 @@ namespace DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "OwnerId",
+                name: "UserId",
                 table: "Repositories");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "OwnerId",
+                name: "UserId",
                 table: "Repositories");
         }
 

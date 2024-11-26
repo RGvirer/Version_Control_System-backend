@@ -108,13 +108,13 @@ namespace DAL.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("OwnerId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("RepositoryId")
                         .HasName("PK__Reposito__3214EC07DEFDFBA0");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Repositories");
                 });
@@ -229,7 +229,7 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Models.User", "Owner")
                         .WithMany("Repositories")
-                        .HasForeignKey("OwnerId")
+                        .HasForeignKey("UserId")
                         .IsRequired()
                         .HasConstraintName("FK__Repositor__Owner__3D5E1FD2");
 

@@ -96,10 +96,10 @@ namespace DAL
             }
         }
 
-        public bool GetAll(UserDTO item)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool GetAll(UserDTO item)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public List<UserDTO> GetAll()
         {

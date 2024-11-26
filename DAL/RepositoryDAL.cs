@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DAL.Models;
 using DataTransferObjects;
+using System.Threading.Channels;
 
 namespace DAL
 {
@@ -19,16 +20,26 @@ namespace DAL
         {
             try
             {
+
                 var config = new MapperConfiguration(cfg =>
                 {
                     cfg.CreateMap<RepositoryDTO, Repository>();
+                        //.ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
+                        //.ReverseMap();
+
+                    //cfg.CreateMap<UserDTO, User>()
+                      //  .ReverseMap();
                 });
 
                 var localMapper = config.CreateMapper();
                 var entity = localMapper.Map<Repository>(repository);
 
                 dbContext.Repositories.Add(entity);
-                dbContext.SaveChanges();
+                var changes=dbContext.SaveChanges();
+                if (changes == 0)
+                {
+                    Console.WriteLine("No changes were saved to the database.");
+                }
                 return true;
             }
             catch (Exception ex)
@@ -44,7 +55,12 @@ namespace DAL
             {
                 var config = new MapperConfiguration(cfg =>
                 {
-                    cfg.CreateMap<RepositoryDTO, Repository>();
+                    cfg.CreateMap<RepositoryDTO, Repository>()
+                        .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
+                        .ReverseMap();
+
+                    cfg.CreateMap<UserDTO, User>()
+                        .ReverseMap();
                 });
 
                 var localMapper = config.CreateMapper();
@@ -76,7 +92,12 @@ namespace DAL
 
                 var config = new MapperConfiguration(cfg =>
                 {
-                    cfg.CreateMap<Repository, RepositoryDTO>();
+                    cfg.CreateMap<RepositoryDTO, Repository>()
+                        .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
+                        .ReverseMap();
+
+                    cfg.CreateMap<UserDTO, User>()
+                        .ReverseMap();
                 });
 
                 var localMapper = config.CreateMapper();
@@ -96,11 +117,16 @@ namespace DAL
 
                 var config = new MapperConfiguration(cfg =>
                 {
-                    cfg.CreateMap<Repository, RepositoryDTO>();
+                    cfg.CreateMap<RepositoryDTO, Repository>()
+                        .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
+                        .ReverseMap();
+
+                    cfg.CreateMap<UserDTO, User>()
+                        .ReverseMap();
                 });
 
                 var localMapper = config.CreateMapper();
-                return repositorys.Select(repository => localMapper.Map<RepositoryDTO>(repositorys)).ToList();
+                return repositorys.Select(repository => localMapper.Map<RepositoryDTO>(repository)).ToList();
             }
             catch (Exception)
             {
@@ -114,7 +140,12 @@ namespace DAL
             {
                 var config = new MapperConfiguration(cfg =>
                 {
-                    cfg.CreateMap<RepositoryDTO, Repository>();
+                    cfg.CreateMap<RepositoryDTO, Repository>()
+                        .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
+                        .ReverseMap();
+
+                    cfg.CreateMap<UserDTO, User>()
+                        .ReverseMap();
                 });
 
                 var localMapper = config.CreateMapper();

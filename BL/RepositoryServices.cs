@@ -15,15 +15,16 @@ namespace BL
         {
             try
             {
-                if (repository.OwnerId <= 0)
+                if (repository.UserId <= 0)
                 {
-                    throw new ArgumentException("OwnerId must be a valid user ID.");
+                    throw new ArgumentException("UserId must be a valid user ID.");
                 }
 
                 return repositoryDal.AddNew(repository);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }

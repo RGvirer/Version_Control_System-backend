@@ -15,7 +15,8 @@ namespace DAL
             services.AddScoped(typeof(IDAL.IUserDAL), typeof(DAL.UserDal));
             services.AddScoped(typeof(IDAL.IRepositoryDAL), typeof(DAL.RepositoryDal));
             services.AddScoped(typeof(IDAL.IBranchDAL), typeof(DAL.BranchDal));
-
+            services.AddScoped(typeof(IDAL.IMergeDAL), typeof(DAL.MergeDAL));
+            services.AddScoped(typeof(IDAL.IVersionDAL), typeof(DAL.VersionDAL));
             services.AddDbContext<VersionMmanagementSystemContext>(options =>
                                 options.UseSqlServer());
 

@@ -71,10 +71,11 @@ public partial class VersionMmanagementSystemContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.Description).HasMaxLength(1000);
+            entity.Property(e => e.Description).HasMaxLength(1000);
             entity.Property(e => e.Name).HasMaxLength(255);
 
             entity.HasOne(d => d.Owner).WithMany(p => p.Repositories)
-                .HasForeignKey(d => d.OwnerId)
+                .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Repositor__Owner__3D5E1FD2");
         });
@@ -104,8 +105,8 @@ public partial class VersionMmanagementSystemContext : DbContext
                 .HasColumnType("datetime");
             entity.Property(e => e.Description).HasMaxLength(1000);
 
-            entity.HasOne(d => d.Author).WithMany(p => p.Versions)
-                .HasForeignKey(d => d.AuthorId)
+            entity.HasOne(d => d.User).WithMany(p => p.Versions)
+                .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Versions__Author__46E78A0C");
 

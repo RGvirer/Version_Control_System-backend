@@ -4,7 +4,7 @@ using DataTransferObjects;
 
 namespace DAL
 {
-    internal class VersionDAL
+    public class VersionDAL:IDAL.IVersionDAL
     {
         private readonly VersionMmanagementSystemContext dbContext;
         private readonly IMapper mapper;
@@ -99,7 +99,7 @@ namespace DAL
                 });
 
                 var localMapper = config.CreateMapper();
-                return versions.Select(version => localMapper.Map<VersionDTO>(versions)).ToList();
+                return versions.Select(version => localMapper.Map<VersionDTO>(version)).ToList();
             }
             catch (Exception)
             {

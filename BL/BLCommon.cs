@@ -10,6 +10,8 @@ namespace BL
             services.AddScoped<IUserBL, UserServices>(); // Make sure UserServices implements IUserBL
             services.AddScoped<IRepositoryBL, RepositoryServices>();
             services.AddScoped<IBranchBL, BranchServices>();
+            services.AddScoped<IMergeBL, MergeServices>();
+            services.AddScoped<IVersionBL, VersionServices>();
             return services;
         }
     }

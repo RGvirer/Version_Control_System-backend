@@ -10,11 +10,11 @@ public partial class Version
 
     public DateTime CreatedAt { get; set; }
 
-    public int AuthorId { get; set; }
+    public int UserId { get; set; }
 
     public string? Description { get; set; }
 
-    public virtual User Author { get; set; } = null!;
+    public virtual User User { get; set; } = null!;
 
     public virtual Branch Branch { get; set; } = null!;
 }

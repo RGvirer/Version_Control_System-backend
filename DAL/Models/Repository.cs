@@ -10,9 +10,9 @@ public partial class Repository
 
     public string? Description { get; set; }
 
-    public int OwnerId { get; set; }
+    public int UserId { get; set; }
 
     public virtual ICollection<Branch> Branches { get; set; } = new List<Branch>();
 
-    public virtual User Owner { get; set; } = null!;
+    public User Owner { get; set; } = null!;
 }

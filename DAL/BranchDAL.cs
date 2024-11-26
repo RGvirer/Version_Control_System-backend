@@ -79,7 +79,7 @@ namespace DAL
 
 
                 var localMapper = config.CreateMapper();
-                return branches.Select(merge => localMapper.Map<BranchDTO>(branches)).ToList();
+                return branches.Select(branch => localMapper.Map<BranchDTO>(branch)).ToList();
             }
             catch (Exception)
             {

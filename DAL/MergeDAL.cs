@@ -4,7 +4,7 @@ using DataTransferObjects;
 
 namespace DAL
 {
-    internal class MergeDAL
+    public class MergeDAL:IDAL.IMergeDAL
     {
         private readonly VersionMmanagementSystemContext dbContext;
         private readonly IMapper mapper;
@@ -99,7 +99,7 @@ namespace DAL
                 });
 
                 var localMapper = config.CreateMapper();
-                return merges.Select(merge => localMapper.Map<MergeDTO>(merges)).ToList();
+                return merges.Select(merge => localMapper.Map<MergeDTO>(merge)).ToList();
             }
             catch (Exception)
             {
