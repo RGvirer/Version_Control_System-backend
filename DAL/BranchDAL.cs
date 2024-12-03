@@ -74,7 +74,9 @@ namespace DAL
 
                 var config = new MapperConfiguration(cfg =>
                 {
-                    cfg.CreateMap<Branch, BranchDTO>();
+                    cfg.CreateMap<Branch, BranchDTO>()
+                    .ForMember(dest => dest.RepositoryId, opt => opt.MapFrom(src => src.RepositoryId))
+                        .ReverseMap();
                 });
 
 

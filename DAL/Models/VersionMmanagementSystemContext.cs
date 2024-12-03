@@ -74,10 +74,10 @@ public partial class VersionMmanagementSystemContext : DbContext
             entity.Property(e => e.Description).HasMaxLength(1000);
             entity.Property(e => e.Name).HasMaxLength(255);
 
-            entity.HasOne(d => d.Owner).WithMany(p => p.Repositories)
+            entity.HasOne(d => d.User).WithMany(p => p.Repositories)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Repositor__Owner__3D5E1FD2");
+                .HasConstraintName("FK__Repositor__User__3D5E1FD2");
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -93,6 +93,13 @@ public partial class VersionMmanagementSystemContext : DbContext
                 .HasColumnType("datetime");
             entity.Property(e => e.Email).HasMaxLength(255);
             entity.Property(e => e.Username).HasMaxLength(255);
+            // מיפוי הקשר בין משתמשים לרפוזיטוריות
+            entity.HasMany(e => e.Repositories) // מגדיר שמימוש של User יכול להיות קשור לרפוזיטוריות רבות
+                  .WithOne(r => r.User) // כל רפוזיטוריון קשור למשתמש אחד
+                  .HasForeignKey(r => r.UserId) // UserId ברפוזיטוריון הוא המפתח הזר
+                  .OnDelete(DeleteBehavior.Cascade); // כאשר משתמש נמחק, כל הרפוזיטוריות שלו ימחקו
+
+
         });
 
         modelBuilder.Entity<Version>(entity =>

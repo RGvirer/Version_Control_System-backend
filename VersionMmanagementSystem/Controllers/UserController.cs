@@ -1,5 +1,6 @@
 ﻿using DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace project_18_7.Controllers
 {
@@ -18,9 +19,12 @@ namespace project_18_7.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<UserDTO>> Get()
         {
+            // טוענים את כל המשתמשים יחד עם המידע על הרפוזיטורים שלהם
             var users = _ibl.GetAll().ToList();
+
             return Ok(users);
         }
+
 
         // GET api/User/5
         [HttpGet("{id}")]

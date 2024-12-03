@@ -13,5 +13,7 @@
         public DateTime? CreatedAt { get; set; }
 
         public int YearCreated { get; set; }
+
+        public List<RepositoryDTO> Repositories { get; set; } = new List<RepositoryDTO>();
     }
 }

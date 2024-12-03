@@ -16,7 +16,7 @@ public partial class Branch
 
     public virtual ICollection<Merge> MergeTargetBranches { get; set; } = new List<Merge>();
 
-    public virtual Repository Repository { get; set; } = null!;
+    public Repository Repository { get; set; } = null!;
 
     public virtual ICollection<Version> Versions { get; set; } = new List<Version>();
 }

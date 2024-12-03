@@ -14,5 +14,5 @@ public partial class Repository
 
     public virtual ICollection<Branch> Branches { get; set; } = new List<Branch>();
 
-    public User Owner { get; set; } = null!;
+    public User User { get; set; } = null!;
 }

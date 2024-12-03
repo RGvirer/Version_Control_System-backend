@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DAL.Models;
 using DataTransferObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL
 {
@@ -105,10 +106,13 @@ namespace DAL
         {
             try
             {
-                var users = dbContext.Users.ToList();
+                var users = dbContext.Users
+                    .Include(u => u.Repositories) // טעינת הקשר של הרפוזיטורים
+                    .ToList();
 
                 var config = new MapperConfiguration(cfg =>
                 {
+                    cfg.CreateMap<Repository, RepositoryDTO>();
                     cfg.CreateMap<User, UserDTO>()
                        .ForMember(m => m.Password, p => p.MapFrom(a => a.PasswordHash))
                        .ForMember(m => m.YearCreated, p => p.MapFrom(a => a.CreatedAt.Year));

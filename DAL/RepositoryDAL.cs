@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DAL.Models;
 using DataTransferObjects;
-using System.Threading.Channels;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL
 {
@@ -113,16 +113,19 @@ namespace DAL
         {
             try
             {
-                var repositorys = dbContext.Repositories.ToList();
+                var repositorys = dbContext.Repositories
+                    .Include(u => u.Branches)
+                    .ToList();
 
                 var config = new MapperConfiguration(cfg =>
                 {
+                    cfg.CreateMap<Branch, BranchDTO>();
                     cfg.CreateMap<RepositoryDTO, Repository>()
                         .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
                         .ReverseMap();
 
-                    cfg.CreateMap<UserDTO, User>()
-                        .ReverseMap();
+                    //cfg.CreateMap<UserDTO, User>()
+                    //    .ReverseMap();
                 });
 
                 var localMapper = config.CreateMapper();
