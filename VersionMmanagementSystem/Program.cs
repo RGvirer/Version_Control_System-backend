@@ -13,7 +13,7 @@ builder.Services.AddBLDependencies();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(BLCommon), typeof(DALCommon));
+builder.Services.AddAutoMapper(typeof(VersionDAL), typeof(UserDal), typeof(RepositoryDal), typeof(BranchDal), typeof(MergeDAL));
 
 // הוסף שירות CORS
 builder.Services.AddCors(options =>
