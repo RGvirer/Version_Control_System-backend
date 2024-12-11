@@ -4,16 +4,16 @@ using DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-builder.WebHost.UseUrls($"http://*:{port}");
+//var port = Environment.GetEnvironmentVariable("PORT") ?? "7180";
+//builder.WebHost.UseUrls($"http://*:{port}");
 
 // Add services to the container.
 builder.Services.AddDALDependencies(builder.Configuration);
 builder.Services.AddBLDependencies();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(VersionDAL), typeof(UserDal), typeof(RepositoryDal), typeof(BranchDal), typeof(MergeDAL));
+builder.Services.AddSwaggerGen();
 
 // הוסף שירות CORS
 builder.Services.AddCors(options =>
@@ -27,6 +27,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+Console.WriteLine($"Environment: {app.Environment.EnvironmentName}");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
