@@ -8,10 +8,11 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy the project file and restore any dependencies (via dotnet restore)
-COPY [Accessories/Accessories.csproj, Accessories/]
-COPY [DAL/DAL.csproj, DAL/]
-COPY [DataTransferObjects/DataTransferObjects.csproj, DataTransferObjects/]
-COPY ["VersionMmanagementSystem/VersionMmanagementSystem.csproj", "VersionMmanagementSystem/"]
+COPY Accessories/Accessories.csproj Accessories/
+COPY DAL/DAL.csproj DAL/
+COPY DataTransferObjects/DataTransferObjects.csproj DataTransferObjects/
+COPY VersionMmanagementSystem/VersionMmanagementSystem.csproj VersionMmanagementSystem/
+
 RUN dotnet restore "VersionMmanagementSystem/VersionMmanagementSystem.csproj"
 
 # Copy the rest of the code
