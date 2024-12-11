@@ -1,6 +1,8 @@
 using AutoMapper;
 using BL;
 using DAL;
+using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,9 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader();
     });
 });
+
+builder.Services.AddDbContext<VersionMmanagementSystemContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 Console.WriteLine($"Environment: {app.Environment.EnvironmentName}");
