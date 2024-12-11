@@ -1,3 +1,4 @@
+using AutoMapper;
 using BL;
 using DAL;
 
@@ -12,7 +13,7 @@ builder.Services.AddBLDependencies();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(BLCommon), typeof(DALCommon));
 
 // הוסף שירות CORS
 builder.Services.AddCors(options =>
