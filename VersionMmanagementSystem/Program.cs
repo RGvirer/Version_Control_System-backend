@@ -12,7 +12,7 @@ builder.Services.AddBLDependencies();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // הוסף שירות CORS
 builder.Services.AddCors(options =>
