@@ -64,7 +64,6 @@ namespace project_18_7.Controllers
             }
             catch (Exception ex)
             {
-                // הוספת פרטי השגיאה לקובץ הלוג או למסוף
                 Console.WriteLine(ex.Message);
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
