@@ -2,15 +2,6 @@
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * text=auto
-
-###############################################################################
-# Custom Linguist overrides for ASP.NET recognition
-###############################################################################
-*.cshtml linguist-detectable=true
-*.aspx linguist-detectable=true
-*.razor linguist-detectable=true
-*.cs linguist-detectable=true
-
 ###############################################################################
 # Set default behavior for command prompt diff.
 #
@@ -19,7 +10,6 @@
 # Note: This is only used by command line
 ###############################################################################
 #*.cs     diff=csharp
-
 ###############################################################################
 # Set the merge driver for project and solution files
 #
@@ -42,7 +32,6 @@
 #*.modelproj merge=binary
 #*.sqlproj   merge=binary
 #*.wwaproj   merge=binary
-
 ###############################################################################
 # behavior for image files
 #
@@ -51,7 +40,6 @@
 #*.jpg   binary
 #*.png   binary
 #*.gif   binary
-
 ###############################################################################
 # diff behavior for common document formats
 # 
