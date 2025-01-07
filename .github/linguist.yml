@@ -1,0 +1,5 @@
+override:
+  "*.cshtml": ASP.NET
+  "*.aspx": ASP.NET
+  "*.razor": ASP.NET
+  "Dockerfile": false
